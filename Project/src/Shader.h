@@ -194,7 +194,7 @@ public:
 	void Play();
 	
 	//!	シェーダー数
-	u32 GetShaderCount() const
+	size_t GetShaderCount() const
 	{
 		return _pShaderList.size();
 	}

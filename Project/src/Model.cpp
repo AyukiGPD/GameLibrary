@@ -193,7 +193,7 @@ void ModelData::Render()
 bool ModelData::Load(const std::string& fileName, f32 scale)
 {
 	bool result = false;
-	s32 index = fileName.rfind(".", fileName.size() - 1);
+	size_t index = fileName.rfind(".", fileName.size() - 1);
 	if (index != std::string::npos)
 	{
 		std::string ext = fileName.substr(index);	//	拡張子
@@ -686,7 +686,7 @@ bool Model::Object::Build()
 		{
 			// テクスチャなし
 			currentMaterialId = materialId;
-			s32 clusterIndex = _clusters.size();
+			auto clusterIndex = _clusters.size();
 			_clusters.push_back(Cluster());
 			Cluster& cluster = _clusters[clusterIndex];
 			cluster._pTexture = nullptr;
@@ -702,7 +702,7 @@ bool Model::Object::Build()
 			currentMaterialId = materialId;
 			MaterialData* pMaterial = _pModel->GetMaterial(materialId);
 
-			s32 clusterIndex = _clusters.size();
+			auto clusterIndex = _clusters.size();
 			_clusters.push_back(Cluster());
 			Cluster& cluster = _clusters[clusterIndex];
 			cluster._pTexture = pMaterial->_pTexture;
@@ -771,7 +771,7 @@ bool Model::Object::Build()
 			v1 = triangle + 1;
 			v2 = triangle + 2;
 
-			i0 = vertices.size();
+			i0 = (u32)vertices.size();
 			i1 = i0 + 1;
 			i2 = i0 + 2;
 
@@ -834,7 +834,7 @@ bool Model::Object::Build()
 			SafeDelete(pVbo);
 			return false;
 		}
-		vboDesc.SetVertexData(sizeof(Vertex), vertices.size(), &vertices[0]);
+		vboDesc.SetVertexData(sizeof(Vertex), (u32)vertices.size(), &vertices[0]);
 		vboDesc.SetElementList(&element[0], elementCount);
 		if(pVbo->Create(vboDesc, BufferObject::PRIMITIVE_TYPE::TRIANGLES))
 		{
@@ -858,7 +858,7 @@ bool Model::Object::Build()
 		}
 
 		BufferObject::Ibo::Desc iboDesc;
-		iboDesc.SetIndexData(sizeof(u32), indices.size(), &indices[0]);
+		iboDesc.SetIndexData(sizeof(u32), (u32)indices.size(), &indices[0]);
 		if(pIbo->Create(iboDesc, BufferObject::INDEX_TYPE::TYPE_32))
 		{
 			_pIbo = pIbo;

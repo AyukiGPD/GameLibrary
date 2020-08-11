@@ -76,10 +76,10 @@ struct Color
 	//!	@param	[in]	alpha	アルファ
 	void SetFloat(f32 red, f32 green, f32 blue, f32 alpha = 1.0f)
 	{
-		this->r = (red * 255);
-		this->g = (green * 255);
-		this->b = (blue * 255);
-		this->a = (alpha * 255);
+		this->r = u8(red * 255.f);
+		this->g = u8(green * 255.f);
+		this->b = u8(blue * 255.f);
+		this->a = u8(alpha * 255.f);
 	}
 
 	//!	グレー設定
@@ -136,13 +136,15 @@ struct Color
 		f32 green = (f32)g * inv;
 		f32 blue  = (f32)b * inv;
 
-		result.k = min(1 - red, min(1 - green, 1 - blue));
 
-		result.c = (1.f - red   - result.k) / (1.f - result.k);
-		result.m = (1.f - green - result.k) / (1.f - result.k);
-		result.y = (1.f - blue  - result.k) / (1.f - result.k);
+		f32 keyPlate = min(1 - red, min(1 - green, 1 - blue));
+		result.k = (u8)keyPlate;
 
-		result.a = (f32)a * inv;
+		result.c = u8((1.f - red   - keyPlate) / (1.f - keyPlate));
+		result.m = u8((1.f - green - keyPlate) / (1.f - keyPlate));
+		result.y = u8((1.f - blue  - keyPlate) / (1.f - keyPlate));
+
+		result.a = u8((f32)a * inv);
 	}
 
 	//!	反対色取得

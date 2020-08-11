@@ -184,10 +184,10 @@ public:
 	//! 1ピクセル読み込み
 	virtual	Color	read()
 	{
-		u8	b = fgetc(_fp);
-		u8	g = fgetc(_fp);
-		u8	r = fgetc(_fp);
-		u8	a = fgetc(_fp);
+		u8 b = SafeFgetc(_fp);
+		u8 g = SafeFgetc(_fp);
+		u8 r = SafeFgetc(_fp);
+		u8 a = SafeFgetc(_fp);
 
 		return Color(r, g, b, a);
 	}
@@ -221,7 +221,7 @@ public:
 	{
 		// 繰り返しフラグ
 		if( _count == 0 ) {
-			u8	flagCount = fgetc(_fp);
+			u8	flagCount = SafeFgetc(_fp);
 
 			// 最上位ビットがセット(1のとき)の場合→「連続するデータの数」
 			// 最上位ビットがセット(0のとき)の場合→「連続しないデータの数」
@@ -229,10 +229,10 @@ public:
 			{
 				_state = STATE::COMPRESSED;
 
-				u8	b = fgetc(_fp);
-				u8	g = fgetc(_fp);
-				u8	r = fgetc(_fp);
-				u8	a = fgetc(_fp);
+				u8	b = SafeFgetc(_fp);
+				u8	g = SafeFgetc(_fp);
+				u8	r = SafeFgetc(_fp);
+				u8	a = SafeFgetc(_fp);
 
 				_color = Color(r, g, b, a);
 			}
@@ -245,10 +245,10 @@ public:
 
 		if( _state == STATE::UNCOMPRESSED )
 		{
-			u8	b = fgetc(_fp);
-			u8	g = fgetc(_fp);
-			u8	r = fgetc(_fp);
-			u8	a = fgetc(_fp);
+			u8	b = SafeFgetc(_fp);
+			u8	g = SafeFgetc(_fp);
+			u8	r = SafeFgetc(_fp);
+			u8	a = SafeFgetc(_fp);
 
 			_color = Color(r, g, b, a);
 		}
@@ -790,7 +790,7 @@ bool AssetTexture::Load(const std::string& fileName, u32 mipLevel)
 	// (4) 画像イメージの転送
 	//-------------------------------------------------------------
 	bool result = false;
-	s32 index = fileName.rfind(".", fileName.size() - 1);
+	size_t index = fileName.rfind(".", fileName.size() - 1);
 	if(index != std::string::npos)
 	{
 		std::string ext = fileName.substr(index);	//	拡張子

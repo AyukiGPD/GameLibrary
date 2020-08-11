@@ -107,10 +107,10 @@ Matrix Matrix::FrustumMatrix(f32 left, f32 right, f32 bottom, f32 top, f32 znear
 	f32 a =  (right + left  ) / (right - left  );
 	f32 b =  (top   + bottom) / (top   - bottom);
 	f32 c = -(zfar  + znear ) / (zfar  - znear );
-	f32 d = -2.0 * zfar * znear / (zfar - znear);
+	f32 d = -2.f * zfar * znear / (zfar - znear);
 	Matrix m(
 		2.f * znear / (right - left),					 0.f, 0.f,  0.f,
-								 0.f, 2.0*znear/(top-bottom), 0.f,  0.f, 
+								 0.f, 2.f*znear/(top-bottom), 0.f,  0.f, 
 								   a,                      b,   c, -1.f, 
 								 0.f,                    0.0,   d,  0.f);
 	return m;

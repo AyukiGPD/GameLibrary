@@ -36,13 +36,17 @@ static const s32 SCRN_HEIGHT = 1080;	//!< 高さ
 //static const s32 SCRN_HEIGHT = 900;		//!< 高さ
 #endif
 
+static const f32 SCRN_WIDTH_F  = static_cast<f32>(SCRN_WIDTH);		//!< 幅
+static const f32 SCRN_HEIGHT_F = static_cast<f32>(SCRN_HEIGHT);		//!< 高さ
+
+
 static const s32 SCRN_WIDTH_TWICE  = SCRN_WIDTH  * 2;	//!< 幅
 static const s32 SCRN_HEIGHT_TWICE = SCRN_HEIGHT * 2;	//!< 高さ
 
-static const s32 SCRN_WIDTH_HALF  = SCRN_WIDTH  * 0.5f;	//!< 幅
-static const s32 SCRN_HEIGHT_HALF = SCRN_HEIGHT * 0.5f;	//!< 高さ
+static const s32 SCRN_WIDTH_HALF  = s32(SCRN_WIDTH_F * 0.5f);	//!< 幅
+static const s32 SCRN_HEIGHT_HALF = s32(SCRN_HEIGHT_F * 0.5f);	//!< 高さ
 
-static const f32 SCRN_ASPECT = static_cast<f32>(SCRN_WIDTH) / static_cast<f32>(SCRN_HEIGHT);	//!< アスペクト比
+static const f32 SCRN_ASPECT = SCRN_WIDTH_F / SCRN_HEIGHT_F;	//!< アスペクト比
 
 //-----------------------------------------------------------------------------
 //!	インデックス計算
@@ -156,13 +160,11 @@ void SafeDeleteArray(std::list<T*>& pArr)
 	pArr.clear();
 }
 
-
-inline
-f32 Lerp(f32 a, f32 b, f32 scale)
-{
-	return (a + (b - a) * scale);
-}
-
+//-----------------------------------------------------------------------------
+//! @brief  fgetc
+//! @param  [in]    fp  ファイルポインタ
+//-----------------------------------------------------------------------------
+u8 SafeFgetc(FILE* fp);
 
 
 //	GLUT警告削除用コード

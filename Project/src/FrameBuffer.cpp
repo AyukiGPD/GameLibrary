@@ -106,7 +106,7 @@ bool FrameBuffer::Init(u32 width, u32 height, const std::vector<Desc>& descs)
 	if (_fboId != 0){ return false; }	//	既に作成されている
 
 	glGenFramebuffers(1, &_fboId);
-	u32 size = descs.size();
+	size_t size = descs.size();
 	for (u32 i = 0; i < size; ++i)
 	{
 		RenderTarget::Desc texDesc(width, height, descs[i]._param);
@@ -302,7 +302,7 @@ void FrameBuffer::SetTargetBuffer()
 {
 	if (_run)
 	{
-		u32 size = _pRenderTargets.size();
+		s32 size = (s32)_pRenderTargets.size();
 		if (size <= 0){ return; }
 		// レンダーターゲットを指定する
 		glDrawBuffers(size, &gAttachBuffers[0]);

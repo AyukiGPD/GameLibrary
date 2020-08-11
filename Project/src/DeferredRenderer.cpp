@@ -257,7 +257,7 @@ void PhysicalBasedRendering::Update()
 	//	この機能は今後デバッグ用のクラスに移動予定
 	if(IsWindowActive())
 	{
-		s32 luminaceSize = _pToneMapping->GetBufferSize();
+		s32 luminaceSize = (s32)_pToneMapping->GetBufferSize();
 		if(pKeyInput->GetTriggers(KEYCODE::PAD_NUMPAD8))
 		{
 			_index = min(_index + 1, BloomFilter::BLOOM_BUFFER_SIZE - 1);
@@ -324,7 +324,7 @@ void PhysicalBasedRendering::Lighting(const Matrix& matProj, const Matrix& matVi
 {
 	LightManager* pLight = Manager::Light();
 	std::list<LightObject*> pLightList = pLight->GetLightList();
-	u32 lightSize = pLightList.size();
+	auto lightSize = pLightList.size();
 	if (lightSize <= 0)
 	{
 		return;

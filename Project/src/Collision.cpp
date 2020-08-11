@@ -31,14 +31,19 @@ public:
 	//	ラインの描画
 	void drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 	{
-		Render3D::Line(from, to, Color(color.x() * 255, color.y() * 255, color.z() * 255));
+		Color lineColor;
+		lineColor.SetFloat(color.x(), color.y(), color.z());
+		Render3D::Line(from, to, lineColor);
 	}
 
 	//	ラインの描画
 	void drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
 	{
-		Render3D::Line(from, to, Color(fromColor.x() * 255, fromColor.y() * 255, fromColor.z() * 255),
-			Color(toColor.x() * 255, toColor.y() * 255, toColor.z() * 255));
+		Color fromLineColor;
+		Color toLineColor;
+		fromLineColor.SetFloat(fromColor.x(), fromColor.y(), fromColor.z());
+		toLineColor.SetFloat(toColor.x(), toColor.y(), toColor.z());
+		Render3D::Line(from, to, fromLineColor, toLineColor);
 	}
 
 
@@ -46,9 +51,11 @@ public:
 	void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
 	{
 		UNUSED(lifeTime);
-		Vector3 to = PointOnB + normalOnB*distance;
+		Vector3 to = PointOnB + normalOnB * distance;
 		const Vector3& from = PointOnB;
-		Render3D::Line(from, to, Color(color.x() * 255, color.y() * 255, color.z() * 255));
+		Color lineColor;
+		lineColor.SetFloat(color.x(), color.y(), color.z());
+		Render3D::Line(from, to, lineColor);
 	}
 
 	//	エラーの表示
@@ -632,11 +639,12 @@ bool CollisionManager::ContactProcessed(btManifoldPoint& p, void* a, void* b)
 	RigidBody* pRigid0 = (RigidBody*)pBody0->getUserPointer();
 	RigidBody* pRigid1 = (RigidBody*)pBody1->getUserPointer();
 
+	//! @TODO 問題がわからないため今後修正
 	//	とりあえずの処理
 	//	消したあとのオブジェクトらしきものが0xfeeefeeeになっているので
 	//	ないものとしてnullにする
-	pRigid0 = u32(pRigid0) == 0xfeeefeee ? nullptr : pRigid0;
-	pRigid1 = u32(pRigid1) == 0xfeeefeee ? nullptr : pRigid1;
+	//pRigid0 = u32(pRigid0) == 0xfeeefeee ? nullptr : pRigid0;
+	//pRigid1 = u32(pRigid1) == 0xfeeefeee ? nullptr : pRigid1;
 
 	//	接触処理関数を呼び出す
 	if(pRigid0)

@@ -52,9 +52,9 @@ void MeshBase::SetParent(GameObjectBase* pParent)
 //!	マテリアル追加
 //!	@param	[in]	material	マテリアル
 //-----------------------------------------------------------------------------
-u32 MeshBase::AddMateiral(const MaterialData& material)
+size_t MeshBase::AddMateiral(const MaterialData& material)
 {
-	u32 result = _materials.size();
+	size_t result = _materials.size();
 	_materials.push_back(material);
 	return result;
 }

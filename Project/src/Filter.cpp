@@ -263,7 +263,7 @@ void ToneMappingFilter::Render(const Texture* pTexture)
 
 	pShader->Begin(_shaderLuminance);
 
-	u32 size = _pMinBuffer.size();
+	auto size = _pMinBuffer.size();
 	{
 		u32 i = _minBufferCount;
 		_pMinBuffer[i]->Begin();
@@ -377,8 +377,8 @@ bool BloomFilter::Init(u32 width, u32 height, const Texture::Param& param)
 	s32 h = height;
 	for(u32 i = 0; i < BLOOM_BUFFER_SIZE; ++i)
 	{
-		w = max(w * 0.5f,1);
-		h = max(h * 0.5f,1);
+		w = s32(max(w * 0.5f,1));
+		h = s32(max(h * 0.5f,1));
 
 		//	‚±‚±‚É‚Æ‚è‚ ‚¦‚¸‹Lq
 		BlurFilter* pBlur = new BlurFilter;

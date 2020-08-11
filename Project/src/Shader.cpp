@@ -533,7 +533,7 @@ void ShaderManager::SetUniform(const std::string& name, bool val)
 	s32 location = glGetUniformLocation(_nowRunningShader, name.c_str());
 	if (location < 0){ return; }
 	BOOL boolean = val ? TRUE : FALSE;
-	glUniform1f(location, boolean);
+	glUniform1f(location, (f32)boolean);
 }
 
 //-----------------------------------------------------------------------------
@@ -606,7 +606,7 @@ void ShaderManager::SetUniform(const std::string& name, const Matrix& val, bool 
 	if (_nowRunningShader == 0){ return; }
 	s32 location = glGetUniformLocation(_nowRunningShader, name.c_str());
 	if (location < 0){ return; }
-	u32 t = transpose ? GL_TRUE : GL_FALSE;
+	s8 t = transpose ? GL_TRUE : GL_FALSE;
 	glUniformMatrix4fv(location, 1, t, (f32*)&val);
 }
 
@@ -719,7 +719,7 @@ void ShaderManager::SetUniform(s32 location, const Matrix& val, bool transpose)
 {
 	if (_nowRunningShader == 0){ return; }
 	if (location < 0){ return; }
-	u32 t = transpose ? GL_TRUE : GL_FALSE;
+	s8 t = transpose ? GL_TRUE : GL_FALSE;
 	glUniformMatrix4fv(location, 1, t, (f32*)&val);
 	isErrorGL();
 }
@@ -734,7 +734,7 @@ void ShaderManager::SetUniforms(s32 location, const Matrix* val, u32 size, bool 
 {
 	if(_nowRunningShader == 0){ return; }
 	if(location < 0){ return; }
-	u32 t = transpose ? GL_TRUE : GL_FALSE;
+	s8 t = transpose ? GL_TRUE : GL_FALSE;
 	glUniformMatrix4fv(location, size, t, (f32*)&val);
 	isErrorGL();
 }

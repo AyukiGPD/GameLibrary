@@ -70,6 +70,18 @@ f32 ToDegree(f32 radian)
 	return radian * degree;
 }
 
+//-----------------------------------------------------------------------------
+//! @brief  線形補間
+//! @param  [in]    a       数値A
+//! @param  [in]    b       数値B
+//! @param  [in]    scale   スケール
+//! @retunr 補間
+//-----------------------------------------------------------------------------
+MY_FORCEINLINE
+f32 Lerp(f32 a, f32 b, f32 scale)
+{
+	return (a + (b - a) * scale);
+}
 
 
 }	//	namespace Math

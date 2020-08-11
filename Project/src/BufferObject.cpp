@@ -72,12 +72,12 @@ void Vbo::Desc::SetElementList(const Element* pList, u32 elementCount)
 //-----------------------------------------------------------------------------
 void Vbo::Desc::SetElementList(const std::vector<Element>& list)
 {
-	const u32 count = list.size();
+	const size_t count = list.size();
 	if (count == 0) return;
 
 	_elementList.clear();
 	_elementList.resize(0);
-	for (u32 i = 0; i<count; ++i)
+	for (size_t i = 0; i<count; ++i)
 	{
 		_elementList.push_back(list[i]);
 	}
@@ -214,8 +214,8 @@ void Vbo::UnBind()
 //-----------------------------------------------------------------------------
 void Vbo::CallInputLayout()
 {
-	const u32 count = _elementList.size();
-	for (u32 i = 0; i<count; ++i)
+	const size_t count = _elementList.size();
+	for (size_t i = 0; i<count; ++i)
 	{
 		const Element& p = _elementList[i];
 
@@ -496,14 +496,14 @@ void Vao::Desc::SetElementList(const Element* pList, u32 elementCount)
 //-----------------------------------------------------------------------------
 void Vao::Desc::SetElementList(const std::vector<Element>& list)
 {
-	const u32 count = list.size();
+	const size_t count = list.size();
 	if( count == 0 ) return;
 
 	_elementList.clear();
 	_elementList.resize(0);
-	for(u32 i=0; i<count; ++i)
+	for (size_t i = 0; i < count; ++i)
 	{
-		_elementList.push_back( list[i] );
+		_elementList.push_back(list[i]);
 	}
 }
 
@@ -511,7 +511,7 @@ void Vao::Desc::SetElementList(const std::vector<Element>& list)
 //!	コンストラクタ
 //-----------------------------------------------------------------------------
 Vao::Vao()
-: _vao          (0)
+: _vao(0)
 , _pVbo(nullptr)
 , _pIbo(nullptr)
 {

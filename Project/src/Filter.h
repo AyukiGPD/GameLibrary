@@ -204,7 +204,7 @@ public:
 	}
 
 	//!	輝度取得用縮小バッファ
-	f32 GetBufferSize()const
+	size_t GetBufferSize()const
 	{
 		return _pMinBuffer.size();
 	}

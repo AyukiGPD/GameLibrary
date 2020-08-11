@@ -93,7 +93,7 @@ public:
 	//!	高さ
 	u32 GetHeight()const			{ return _height; }
 	//!	バッファ数
-	u32 GetTextureSize()const		{ return _pRenderTargets.size(); }
+	size_t GetTextureSize()const		{ return _pRenderTargets.size(); }
 	//!	動いてる
 	bool IsRun()const				{ return _run; }
 

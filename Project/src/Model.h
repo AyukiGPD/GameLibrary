@@ -130,7 +130,7 @@ public:
 
 	//	オブジェクトの数を取得
 	//!	@return	オブジェクトの数
-	u32 GetObjectSize() const
+	size_t GetObjectSize() const
 	{
 		ModelData* pModel = dynamic_cast<ModelData*>(_pMeshData.get());
 		return pModel->_pObjects.size();
@@ -220,13 +220,13 @@ public:
 
 	//!	マテリアルの数を取得
 	//!	@return	マテリアルの数
-	u32 GetMaterialSize() const
+	size_t GetMaterialSize() const
 	{
 		return _pModelInstance->GetMaterialSize();
 	}
 	//	オブジェクトの数を取得
 	//!	@return	オブジェクトの数
-	u32 GetObjectSize() const
+	size_t GetObjectSize() const
 	{
 		return _pModelInstance->GetObjectSize();
 	}

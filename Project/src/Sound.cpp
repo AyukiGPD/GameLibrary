@@ -594,7 +594,7 @@ void SoundManager::Volume(SoundInstance* pSound, f32 volume)
 {
 	if( pSound )
 	{
-		f32 vol = max(0.0, min(volume, 1.0));
+		f32 vol = max(0.f, min(volume, 1.f));
 		alSourcef(pSound->_sourceId, AL_GAIN, vol);
 	}
 }
@@ -697,7 +697,7 @@ SoundInstance* SoundManager::Load(const std::string& name, bool isStreaming)
 	{
 		return nullptr;
 	}
-	s32 index = name.rfind(".", name.size() - 1);
+	size_t index = name.rfind(".", name.size() - 1);
 	if (index != std::string::npos)
 	{
 		std::string ext = name.substr(index);

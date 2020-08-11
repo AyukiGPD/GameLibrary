@@ -117,14 +117,14 @@ public:
 
 	//!	マテリアルの数を取得
 	//!	@return	マテリアルの数
-	u32 GetMaterialSize() const
+	size_t GetMaterialSize() const
 	{
 		return _materials.size();
 	}
 
 	//!	マテリアル追加
 	//!	@param	[in]	material	マテリアル
-	u32 AddMateiral(const MaterialData& material);
+	size_t AddMateiral(const MaterialData& material);
 	//!	マテリアル設定(書き換え)
 	//!	@param	[in]	index		マテリアル番号
 	//!	@param	[in]	material	マテリアル

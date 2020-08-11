@@ -404,13 +404,13 @@ Quaternion Matrix::GetRotateQuaternion() const
 
 	s32 nxt[3] = { 1, 2, 0 };
 
-	tr = mat[0][0] + mat[1][1] + mat[2][2] + 1.0;
+	tr = mat[0][0] + mat[1][1] + mat[2][2] + 1.f;
 
 	if (tr > 0.0)
 	{
 		s = sqrtf(tr);
-		result._v.w = s / 2.0;
-		s = 0.5 / s;
+		result._v.w = s / 2.f;
+		s = 0.5f / s;
 		result._v.x = (mat[1][2] - mat[2][1]) * s;
 		result._v.y = (mat[2][0] - mat[0][2]) * s;
 		result._v.z = (mat[0][1] - mat[1][0]) * s;
@@ -425,12 +425,12 @@ Quaternion Matrix::GetRotateQuaternion() const
 		j = nxt[i];
 		k = nxt[j];
 
-		s = sqrtf((mat[i][i] - (mat[j][j] + mat[k][k])) + 1.0);
+		s = sqrtf((mat[i][i] - (mat[j][j] + mat[k][k])) + 1.f);
 
-		tq[i] = s * 0.5;
+		tq[i] = s * 0.5f;
 
-		if (s != 0.0)
-			s = 0.5 / s;
+		if (s != 0.f)
+			s = 0.5f / s;
 
 		tq[3] = (mat[j][k] - mat[k][j]) * s;
 		tq[j] = (mat[i][j] + mat[j][i]) * s;

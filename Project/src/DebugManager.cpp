@@ -93,7 +93,7 @@ void DebugManager::Render()
 		auto& string = _debugWString[i];
 		if (string.empty()){ continue; }
 		SetColor(_debugStringColor[i]);
-		RenderDebugString(string, Vector2(0, 16 * i + 16));
+		RenderDebugString(string, Vector2(0, f32(16 * i + 16)));
 	}
 	if (!_updateActive)
 	{

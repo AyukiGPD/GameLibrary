@@ -1862,7 +1862,7 @@ Angle Quaternion::GetAngleRotate()const
 	}
 	f32 sinhalfangle = sqrtf(squared);
 
-	f64 sha = 1.f / sinhalfangle;
+	f32 sha = 1.f / sinhalfangle;
 	result._axis.x = _v.x * sha;
 	result._axis.y = _v.y * sha;
 	result._axis.z = _v.z * sha;
