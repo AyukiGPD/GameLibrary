@@ -1,0 +1,530 @@
+//=============================================================================
+//!
+//!	@file	Lighting.comp
+//!	@brief	ライティング	未完成
+//!
+//!	@author	YKCH
+//!
+//=============================================================================
+//#version 430 compatibility
+#version 430
+
+
+//http://gamedev.stackexchange.com/questions/67431/deferred-tiled-shading-tile-frusta-calculation-in-opengl
+
+//http://wiki.tommy6.net/wiki/barrier
+
+//http://web.engr.oregonstate.edu/~mjb/cs557/Handouts/compute.shader.1pp.pdf
+
+//http://stackoverflow.com/questions/21384972/sample-depth-buffer-in-opengl-compute-shader
+
+//http://stackoverflow.com/questions/27494768/compute-shader-write-to-texture
+
+#define MAX_LIGHTS 1024
+#define MAX_LIGHTS_PER_TILE 40
+
+#define WORK_GROUP_SIZE 16
+
+struct PointLight
+{
+	vec3	_position;
+	vec3	_color;
+//	float	_power;
+	float	_radius;
+};
+
+
+layout (binding = 0, rgba32f) uniform writeonly image2D outDiffuse;
+layout (binding = 1, rgba32f) uniform writeonly image2D outSpecular;
+
+layout (binding = 2, rgba32f) uniform readonly	image2D texPosition;
+layout (binding = 3, rgba32f) uniform readonly	image2D texNormal;
+layout (binding = 4, rgba8  ) uniform readonly	image2D texAlbedo;
+
+
+layout(location =  7) uniform vec3	eyePosition;		//!< カメラ座標
+
+
+layout(location = 8) uniform mat4 view;
+layout(location = 9) uniform mat4 invProj;
+
+layout(location = 10) uniform int screenWidth;
+layout(location = 11) uniform int screenHeight;
+
+layout (std430, binding = 12) buffer BufferObject
+{
+	PointLight pointLights[];
+};
+
+layout (local_size_x = WORK_GROUP_SIZE, local_size_y = WORK_GROUP_SIZE) in;
+
+shared uint minDepth = 0xFFFFFFFF;
+shared uint maxDepth = 0;
+shared uint pointLightIndex[MAX_LIGHTS];
+shared uint pointLightCount = 0;
+
+vec4 ConvertProjToView( vec4 p )
+{
+	p = invProj * p;
+	p /= p.w;
+	return p;
+}
+
+
+
+// 横軸タイルの番号の計算
+uint GetNumTilesX()
+{
+	return uint( ( ( screenWidth + WORK_GROUP_SIZE - 1 ) ) / float( WORK_GROUP_SIZE ) );
+}
+
+
+// 縦軸タイルの番号の計算
+uint GetNumTilesY()
+{
+	return uint( ( ( screenHeight + WORK_GROUP_SIZE - 1) / float( WORK_GROUP_SIZE ) ) );
+}
+
+vec4 PlaneEquation( vec4 b, vec4 c )
+{
+	vec4 n;
+	n.xyz = normalize(cross( b.xyz, c.xyz ) );
+	n.w = 0;
+	return n;
+}
+
+float GetSignedDistanceFromPlane( vec4 p, vec4 eqn )
+{
+	return dot( eqn.xyz, p.xyz );
+}
+
+
+
+const int FALSE = 0;
+const int TRUE  = 1;
+
+const int LIGHT_AMBIENT		= 0;
+const int LIGHT_DIRECTIONAL = 1;
+const int LIGHT_POINT		= 2;
+const int LIGHT_SPOT		= 3;
+
+
+//	pow近似式
+float	fastPow(float x, float  y) { return exp( log(x) * y ); }
+vec2	fastPow(vec2  x, vec2   y) { return exp( log(x) * y ); }
+vec3	fastPow(vec3  x, vec3   y) { return exp( log(x) * y ); }
+vec4	fastPow(vec4  x, vec4   y) { return exp( log(x) * y ); }
+
+vec2	fastPow(vec2  x, float  y) { return exp( log(x) * y ); }
+vec3	fastPow(vec3  x, float  y) { return exp( log(x) * y ); }
+vec4	fastPow(vec4  x, float  y) { return exp( log(x) * y ); }
+
+#define pow	fastPow
+
+const float PI = 3.14159265;
+
+float saturate(float param)
+{
+	return clamp(param, 0.0, 1.0);
+}
+vec2 saturate(vec2 param)
+{
+	return clamp(param, vec2(0.0, 0.0), vec2(1.0, 1.0));
+}
+vec3 saturate(vec3 param)
+{
+	return clamp(param, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+}
+//-----------------------------------------------------------------------------
+//	フレネル反射
+//!	@param	[in]	NdotV	内積結果 (cosΘ)
+//!	@param	[in]	f0		基本反射率 (フレネルバイアス)
+//-----------------------------------------------------------------------------
+float	fresnel(float NdotV, float f0)
+{
+	// return f0 + (1.0 - f0) * pow(1.0 - NdotV, 5.0);
+	// ↓[高速化近似] 	
+	return f0 + (1.0 - f0) * exp(-8.35 * NdotV);
+}
+
+vec3	RGBtoYUV(vec3 rgb)
+{
+	vec3	result;
+	result.x =  0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;	// Y
+	result.y = -0.169 * rgb.r - 0.331 * rgb.g + 0.500 * rgb.b;	// U
+	result.z =  0.500 * rgb.r - 0.419 * rgb.g - 0.081 * rgb.b;	// V
+
+	return result;
+}
+
+vec3	YUVtoRGB(vec3 yuv)
+{
+	vec3	result;
+
+	result.r = 1.000 * yuv.x                 + 1.402 * yuv.z;	// R
+	result.g = 1.000 * yuv.x - 0.344 * yuv.y - 0.714 * yuv.z;	// G
+	result.b = 1.000 * yuv.x + 1.772 * yuv.y                ;	// B
+
+	return result;
+}
+
+float sqr(float x) { return x*x; }
+
+
+//-----------------------------------------------------------------------------
+//! 0.0～1.0の乱数を取得
+//!	@param	[in]	seed	ピクセル単位で変化する任意の値 (uv値などを推奨)
+//!	@return	乱数値
+//-----------------------------------------------------------------------------
+float rand(vec2 seed)
+{
+	return fract( sin( dot( seed.xy, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+//-----------------------------------------------------------------------------
+//!	-1.0～+1.0の乱数を取得
+//!	@param	[in]	seed	ピクセル単位で変化する任意の値 (uv値などを推奨)
+//!	@return	乱数値
+//-----------------------------------------------------------------------------
+float signed_rand(vec2 seed)
+{
+	return rand(seed) * 2.0 - 1.0;
+}
+
+//=============================================================================
+//	ディフューズ
+//=============================================================================
+//-----------------------------------------------------------------------------
+//!	正規化ランバート
+//-----------------------------------------------------------------------------
+float DiffuseLambert(vec3 N, vec3 L)
+{
+	const float p = 1.0 / PI;
+	return max(0, dot(L, N))*p;
+}
+//-----------------------------------------------------------------------------
+//!	オーレン・ネイヤー
+//-----------------------------------------------------------------------------
+float DiffuseOrenNayar(float roughness,vec3 N,vec3 V,vec3 L)
+{
+	// calculate intermediary values
+	float NdotL = dot(N, L);
+	float NdotV = dot(N, V);
+
+	float angleVN = acos(NdotV);
+	float angleLN = acos(NdotL);
+
+	float alpha = max(angleVN, angleLN);
+	float beta = min(angleVN, angleLN);
+	float gamma = dot(V - N * NdotV, L - N * NdotL);
+
+	float roughnessSquared = roughness * roughness;
+
+	// calculate A and B
+	float A = 1.0 - 0.5 * (roughnessSquared / (roughnessSquared + 0.57));
+
+	float B = 0.45 * (roughnessSquared / (roughnessSquared + 0.09));
+
+	float C = sin(alpha) * tan(beta);
+
+	// put it all together
+	float L1 = max(0.0, NdotL) * (A + B * max(0.0, gamma) * C);
+
+	// get the final color 
+	return  L1;
+}
+
+
+//=============================================================================
+//	スペキュラー
+//=============================================================================
+//-----------------------------------------------------------------------------
+//	BlinnPhong
+//-----------------------------------------------------------------------------
+float SpecularBlinnPhong(float roughness, float NdotH)
+{
+	float	specularPower = 2 / saturate(roughness * roughness + 0.005) - 2;
+	float	factor = (specularPower + 2.0) * (1.0 / (2.0 * PI));
+	return pow(max(0, NdotH), specularPower) * factor;
+}
+//-----------------------------------------------------------------------------
+//	GGX(Generalized - Trowbridge - Reitz)
+//-----------------------------------------------------------------------------
+float SpecularGGX(float roughness, float NdotH)
+{
+	float CosSquared = NdotH*NdotH;
+	float TanSquared = (1 - CosSquared) / CosSquared;
+	return (1.0 / PI) * sqr(roughness / (CosSquared * (roughness*roughness + TanSquared)));
+}
+
+float G1(vec3 N, vec3 V, float roughness)
+{
+	float NdotV = dot(N, V);
+	float k = roughness * sqrt(2.0 / PI);
+	return NdotV / (NdotV * (1 - k) + k);
+}
+float specularOcclusion(float NdotV, float ao)
+{
+	float c = NdotV + ao;
+	return saturate(c * c - 1.0 + ao);
+}
+
+//-----------------------------------------------------------------------------
+//!	CookTorrance反射
+//-----------------------------------------------------------------------------
+float SpecularCookTorrance(float roughness, float metalness, vec3 N, vec3 L, vec3 V)
+{
+	vec3 H = normalize(V + L);
+	float VdotH = dot(V, H);
+	float NdotH = dot(N, H);
+	float NdotL = dot(N, L);
+	float NdotV = saturate(dot(N, V));
+	float F		= fresnel(NdotV, saturate(metalness));	//	フレネル項
+	float D		= SpecularGGX(roughness + 0.004, dot(N, H));	//	反射光
+
+#if 0
+	//	一般的なジオメトリ項
+	//	CookTorrance
+	float G1 = NdotH * NdotV / VdotH;
+	float G2	= 2.0 * NdotH * NdotL / VdotH;
+	float G		= saturate(min(G1, G2));
+#else
+	//	Smithの方法
+	float G		= G1(L, H, roughness)*G1(V, H, roughness);
+#endif
+//	return (F * (1.0 / 4.0)) * (D * G) /  NdotV;
+	return (F * D * G) / (4.0 * NdotV);
+}
+
+int diffuseMode  = 1;	//	0:Lambert		1:OrenNayar
+int specularMode = 1;	//	0:BlinnPhong	1:GGX		2:CookTorrance
+
+
+//	#define DIFFUSE_LIGHT DiffuseLambert(N, L)					//	Lambert
+	#define DIFFUSE_LIGHT DiffuseOrenNayar(roughness, N, V, L)	//	OrenNayer
+//	#define DIFFUSE_LIGHT 0	//	なし
+
+//	#define SPECULAR_LIGHT SpecularBlinnPhong(roughness, dot(N, H))		//	BlinnPhong
+//	#define SPECULAR_LIGHT SpecularGGX(roughness+0.004, dot(N, H))		//	GGX
+	#define SPECULAR_LIGHT SpecularCookTorrance(roughness, metalness, N, L, V) * specularOcclusion(dot(N, V), ao)	//	CookTorrance
+//	#define SPECULAR_LIGHT 0	//	なし
+
+float emissive = 1.0;
+
+
+
+void main()
+{
+	ivec2 pixelPos = ivec2(gl_GlobalInvocationID.xy);
+
+	vec3  worldPosition	= imageLoad(texPosition,pixelPos).xyz;
+	vec3  worldNormal	= imageLoad(texNormal,pixelPos).xyz;
+	vec3  albedo		= imageLoad(texAlbedo,pixelPos).rgb * emissive;
+//	vec3  albedo		= imageLoad(texNormal,pixelPos).rgb * emissive;
+	float roughness		= imageLoad(texPosition,pixelPos).w;
+	float metalness		= imageLoad(texNormal,pixelPos).w;
+
+
+//	imageStore(outDiffuse, pixelPos,vec4(albedo,1.0));
+//	imageStore(outSpecular,pixelPos,imageLoad(texAlbedo,pixelPos));
+
+	//roughness = 0.3f;
+	//metalness = 0.0f;
+
+//	float d = worldPosition.z;
+//
+//	uint depth = uint(d * 0xFFFFFFFF);
+//
+//	atomicMin(minDepth,depth);
+//	atomicMax(maxDepth,depth);
+
+	barrier();
+
+
+	//--------------------------------------------------------------
+
+	// ------------------カリング------------------------------------
+
+	float minDepthZ = float(minDepth / float(0xFFFFFFFF));
+	float maxDepthZ = float(maxDepth / float(0xFFFFFFFF));
+
+	uint pxm = WORK_GROUP_SIZE * gl_WorkGroupID.x;
+	uint pym = WORK_GROUP_SIZE * gl_WorkGroupID.y;
+	uint pxp = WORK_GROUP_SIZE * (gl_WorkGroupID.x + 1);
+	uint pyp = WORK_GROUP_SIZE * (gl_WorkGroupID.y + 1);
+	
+	
+	uint uWindowWidthEvenlyDivisibleByTileRes = WORK_GROUP_SIZE * GetNumTilesX();
+	uint uWindowHeightEvenlyDivisibleByTileRes = WORK_GROUP_SIZE * GetNumTilesY();
+	
+	
+//	vec4 frustum[4];
+//	//frustum[0] = ConvertProjToView( vec4( pxm / float( uWindowWidthEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pym ) / float( uWindowHeightEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, 1.0f, 1.0f ) );
+//	frustum[0] = ConvertProjToView( vec4( pxm / float( uWindowWidthEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pym ) / float( uWindowHeightEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, 1.0f, 1.0f ) );
+//	frustum[1] = ConvertProjToView( vec4( pxp / float( uWindowWidthEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pym ) / float( uWindowHeightEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, 1.0f, 1.0f ) );
+//	frustum[2] = ConvertProjToView( vec4( pxp / float( uWindowWidthEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pyp ) / float( uWindowHeightEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, 1.0f, 1.0f ) );
+//	frustum[3] = ConvertProjToView( vec4( pxm / float( uWindowWidthEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pyp ) / float( uWindowHeightEvenlyDivisibleByTileRes ) * 2.0f - 1.0f, 1.0f, 1.0f ) );
+	
+	float wRes = 1.0 / float(uWindowWidthEvenlyDivisibleByTileRes);
+	float hRes = 1.0 / float(uWindowHeightEvenlyDivisibleByTileRes);
+
+	vec4 frustum[4];
+	frustum[0] = ConvertProjToView( vec4( pxm * wRes * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pym ) * hRes * 2.0f - 1.0f, 1.0f, 1.0f ) );
+	frustum[1] = ConvertProjToView( vec4( pxp * wRes * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pym ) * hRes * 2.0f - 1.0f, 1.0f, 1.0f ) );
+	frustum[2] = ConvertProjToView( vec4( pxp * wRes * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pyp ) * hRes * 2.0f - 1.0f, 1.0f, 1.0f ) );
+	frustum[3] = ConvertProjToView( vec4( pxm * wRes * 2.0f - 1.0f, ( uWindowHeightEvenlyDivisibleByTileRes - pyp ) * hRes * 2.0f - 1.0f, 1.0f, 1.0f ) );
+
+	vec4 frustumEqn[4];
+	for(int i = 0; i < 4; i++)
+	{
+		frustumEqn[i] = PlaneEquation(frustum[i], frustum[( i + 1 ) & 3] );
+	}
+
+	barrier();
+	//--------------------------------------------------------------
+
+	int threadsPerTile = WORK_GROUP_SIZE * WORK_GROUP_SIZE;
+
+	for(uint i = 0; i < MAX_LIGHTS; i += threadsPerTile)
+	{
+		uint il = gl_LocalInvocationIndex + i;
+		if(il < MAX_LIGHTS)
+		{
+			PointLight p = pointLights[il];
+
+//			vec4 viewPos = view * vec4(p._position[0],p._position[1],p._position[2],1.0f);
+//			vec4 viewPos = view * vec4(p._posX,p._posY,p._posZ,1.0f);
+			vec4 viewPos = view * vec4(p._position.xyz,1.0f);
+			float r = p._radius;
+//			float r = 100.0;
+
+			if(viewPos.z + minDepthZ < r && viewPos.z - maxDepthZ < r)
+			{
+				if( ( GetSignedDistanceFromPlane(viewPos,frustumEqn[0]) < r) &&
+					( GetSignedDistanceFromPlane(viewPos,frustumEqn[1]) < r) &&
+					( GetSignedDistanceFromPlane(viewPos,frustumEqn[2]) < r) &&
+					( GetSignedDistanceFromPlane(viewPos,frustumEqn[3]) < r) )
+				{
+					uint id = atomicAdd(pointLightCount,1);
+					pointLightIndex[id] = il;
+				}
+			}
+		}
+	}
+
+	barrier();
+	//--------------------------------------------------------------
+
+	vec2 uv = vec2(pixelPos.x / float(screenWidth), pixelPos.y / float(screenHeight));
+//	vec3 wp = ReconstructWP(d,uv);
+//	float red = 0.0f;
+
+	vec3 diffuseResult  = vec3(0.0,0.0,0.0);
+	vec3 specularResult = vec3(0.0,0.0,0.0);
+
+	vec4 outColor;
+	
+	bool lightHit = false;
+
+	for(int i = 0; i < pointLightCount; i++)
+	{
+		PointLight light = pointLights[pointLightIndex[i]];
+//		if(light._mode == -1)
+//		{
+//			continue;
+//		}
+
+		vec3 lightPos = vec3(light._position);
+		vec3 lightDir = lightPos - worldPosition;
+		float dist = length(lightDir);
+		float power = light._radius;
+
+		
+		vec3 lightColor = vec3(light._color);
+//		vec3 lightColor = vec3(1.0,1.0,1.0);
+		float ao	   = 1.0;
+
+		vec3 N = normalize(worldNormal * 2.0 - 1.0);
+		vec3 L = normalize(lightDir);
+		vec3 V = normalize(eyePosition - worldPosition);
+		vec3 H = normalize(V + L);
+		float	NdotV			= saturate(dot(N, V));
+
+		vec3	specularColor	= mix(vec3(0.04, 0.04, 0.04), albedo.rgb, metalness);
+		float	fresnelFactor	= fresnel(NdotV, saturate(metalness));
+		float	specularFactor	= 1.0 - fresnelFactor;
+
+		vec3  specular = lightColor * SPECULAR_LIGHT * power;
+
+		specularResult += specularColor * vec3(specular) * specularFactor;
+
+
+		if(dist > light._radius )
+		{
+			continue;
+		}
+
+
+		//光源の一定減衰率
+		float constantAttenuation = 1.0;
+		//光源の線形減衰率
+		float linearAttenuation = 0.1;
+		//光源の二次減衰率
+		float quadraticAttenuation = 0.1;
+
+		lightHit = true;
+
+		float attenuation =	1.0 / (constantAttenuation +
+							linearAttenuation * dist +
+							quadraticAttenuation * dist * dist);
+
+		//float power = light._power;
+//		float power = 10;
+
+		vec3  diffuse  = lightColor * DIFFUSE_LIGHT  * attenuation * power;
+
+		float	diffuseFactor	= 1.0 - fresnelFactor;
+		
+		diffuseResult  += albedo.rgb	* vec3(diffuse)  * diffuseFactor;
+
+//		diffuseResult  += vec3(1,0,0);
+//		specularResult += vec3(1,0,0);
+	}
+
+	barrier();
+	//--------------------------------------------------------------
+
+	imageStore(outDiffuse, pixelPos,vec4(diffuseResult,1.0));
+	imageStore(outSpecular,pixelPos,vec4(specularResult,1.0));
+
+//	imageStore(outDiffuse, pixelPos,vec4(vec3(0.5,0.0,0.0),1.0));
+//	imageStore(outSpecular,pixelPos,vec4(vec3(0.0,0.5,0.0),1.0));
+
+	if(lightHit == true)
+	{
+//		imageStore(outDiffuse, pixelPos,vec4(0.5,0.0,0.0,1.0));
+//		imageStore(outSpecular,pixelPos,vec4(0.5,0.0,0.0,1.0));
+	}else
+	{
+//		imageStore(outDiffuse, pixelPos,vec4(0.0,0.5,0.5,1.0));
+//		imageStore(outSpecular,pixelPos,vec4(0.5,0.0,0.5,1.0));
+	}
+
+
+//	if(gl_LocalInvocationID.x == 0 || gl_LocalInvocationID.y == 0 || gl_LocalInvocationID.x == WORK_GROUP_SIZE || gl_LocalInvocationID.y == WORK_GROUP_SIZE)
+//	{
+//
+//		if(lightHit == true)
+//		{
+//			imageStore(outDiffuse, pixelPos,vec4(0.5,0.0,0.0,1.0));
+//			imageStore(outSpecular,pixelPos,vec4(0.5,0.0,0.0,1.0));
+//		}else
+//		{
+//			imageStore(outDiffuse, pixelPos,vec4(0.0,0.5,0.0,1.0));
+//			imageStore(outSpecular,pixelPos,vec4(0.0,0.5,0.0,1.0));
+//		}
+//
+//
+//	}
+}
+

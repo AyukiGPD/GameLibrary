@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLibrary", "Project\GameLibrary.vcxproj", "{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		ReleaseFinal|x64 = ReleaseFinal|x64
+		ReleaseFinal|x86 = ReleaseFinal|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Debug|x64.ActiveCfg = Debug|x64
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Debug|x64.Build.0 = Debug|x64
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Debug|x86.ActiveCfg = Debug|Win32
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Debug|x86.Build.0 = Debug|Win32
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Release|x64.ActiveCfg = Release|x64
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Release|x64.Build.0 = Release|x64
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Release|x86.ActiveCfg = Release|Win32
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.Release|x86.Build.0 = Release|Win32
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.ReleaseFinal|x64.ActiveCfg = ReleaseFinal|x64
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.ReleaseFinal|x64.Build.0 = ReleaseFinal|x64
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.ReleaseFinal|x86.ActiveCfg = ReleaseFinal|Win32
+		{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}.ReleaseFinal|x86.Build.0 = ReleaseFinal|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B21E99FA-E6F2-408F-843C-B319F32119D7}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseFinal|Win32">
+      <Configuration>ReleaseFinal</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseFinal|x64">
+      <Configuration>ReleaseFinal</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4E7AA267-26AD-40C9-A5D2-FD98E39FC2D0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>GameLibrary</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>GameLibrary</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)_exe\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)_obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>MyGame</TargetName>
+    <IncludePath>$(SolutionDir)lib\gl\include;$(SolutionDir)lib\al\include;$(SolutionDir)lib\FTGL;$(SolutionDir)lib\FBX_SDK\include;$(SolutionDir)lib\bullet\src;$(SolutionDir)lib\FTGL\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\gl\lib\$(Platform);$(SolutionDir)lib\FTGL\lib\$(Platform);$(SolutionDir)lib\bullet\lib;$(SolutionDir)lib\al\libs\Win32;$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>MyGame</TargetName>
+    <IncludePath>$(SolutionDir)lib\gl\include;$(SolutionDir)lib\al\include;$(SolutionDir)lib\FTGL;$(SolutionDir)lib\FBX_SDK\include;$(SolutionDir)lib\bullet\src;$(SolutionDir)lib\FTGL\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\gl\lib\$(Platform);$(SolutionDir)lib\FTGL\lib\$(Platform);$(SolutionDir)lib\bullet\lib;$(SolutionDir)lib\al\libs\Win64;$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)_exe\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)_obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_exe\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)_obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>MyGame</TargetName>
+    <IncludePath>$(SolutionDir)lib\gl\include;$(SolutionDir)lib\al\include;$(SolutionDir)lib\FTGL;$(SolutionDir)lib\FBX_SDK\include;$(SolutionDir)lib\bullet\src;$(SolutionDir)lib\FTGL\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\gl\lib\$(Platform);$(SolutionDir)lib\FTGL\lib\$(Platform);$(SolutionDir)lib\bullet\lib;$(SolutionDir)lib\al\libs\Win32;$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>MyGame</TargetName>
+    <IncludePath>$(SolutionDir)lib\gl\include;$(SolutionDir)lib\al\include;$(SolutionDir)lib\FTGL;$(SolutionDir)lib\FBX_SDK\include;$(SolutionDir)lib\bullet\src;$(SolutionDir)lib\FTGL\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\gl\lib\$(Platform);$(SolutionDir)lib\FTGL\lib\$(Platform);$(SolutionDir)lib\bullet\lib;$(SolutionDir)lib\al\libs\Win64;$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_exe\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)_obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_exe\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)_obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>MyGame</TargetName>
+    <IncludePath>$(SolutionDir)lib\gl\include;$(SolutionDir)lib\al\include;$(SolutionDir)lib\FTGL;$(SolutionDir)lib\FBX_SDK\include;$(SolutionDir)lib\bullet\src;$(SolutionDir)lib\FTGL\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\gl\lib\$(Platform);$(SolutionDir)lib\FTGL\lib\$(Platform);$(SolutionDir)lib\bullet\lib;$(SolutionDir)lib\al\libs\Win32;$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\Release;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|x64'">
+    <TargetName>MyGame</TargetName>
+    <IncludePath>$(SolutionDir)lib\gl\include;$(SolutionDir)lib\al\include;$(SolutionDir)lib\FTGL;$(SolutionDir)lib\FBX_SDK\include;$(SolutionDir)lib\bullet\src;$(SolutionDir)lib\FTGL\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\gl\lib\$(Platform);$(SolutionDir)lib\FTGL\lib\$(Platform);$(SolutionDir)lib\bullet\lib;$(SolutionDir)lib\al\libs\Win64;$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\Release;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_exe\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)_obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AssemblerOutput>AssemblyCode</AssemblerOutput>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalOptions>/Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libfbxsdk.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>copy  "$(SolutionDir)lib\gl\dll\$(Platform)\$(Configuration)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FTGL\dll\$(Platform)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration)\*.dll" "$(OutDir)"
+xcopy /I /D /Y "$(ProjectDir)shader" "$(OutDir)shader"
+xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>X64;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AssemblerOutput>AssemblyCode</AssemblerOutput>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalOptions>/Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libfbxsdk.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>copy  "$(SolutionDir)lib\gl\dll\$(Platform)\$(Configuration)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FTGL\dll\$(Platform)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration)\*.dll" "$(OutDir)"
+xcopy /I /D /Y "$(ProjectDir)shader" "$(OutDir)shader"
+xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalOptions>/Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libfbxsdk.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>copy  "$(SolutionDir)lib\gl\dll\$(Platform)\$(Configuration)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FTGL\dll\$(Platform)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration)\*.dll" "$(OutDir)"
+xcopy /I /D /Y "$(ProjectDir)shader" "$(OutDir)shader"
+xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>X64;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalOptions>/Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libfbxsdk.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>copy  "$(SolutionDir)lib\gl\dll\$(Platform)\$(Configuration)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FTGL\dll\$(Platform)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\$(Configuration)\*.dll" "$(OutDir)"
+xcopy /I /D /Y "$(ProjectDir)shader" "$(OutDir)shader"
+xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;RELEASE_FINAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalOptions>/Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libfbxsdk.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>copy  "$(SolutionDir)lib\gl\dll\$(Platform)\Release\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FTGL\dll\$(Platform)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\Release\*.dll" "$(OutDir)"
+xcopy /I /D /Y "$(ProjectDir)shader" "$(OutDir)shader"
+xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>X64;NDEBUG;_CONSOLE;_LIB;RELEASE_FINAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalOptions>/Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libfbxsdk.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>copy  "$(SolutionDir)lib\gl\dll\$(Platform)\Release\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FTGL\dll\$(Platform)\*.dll" "$(OutDir)"
+copy  "$(SolutionDir)lib\FBX_SDK\lib\vs2017\$(PlatformTarget)\Release\*.dll" "$(OutDir)"
+xcopy /I /D /Y "$(ProjectDir)shader" "$(OutDir)shader"
+xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\BaseMesh.h" />
+    <ClInclude Include="src\BaseObject.h" />
+    <ClInclude Include="src\BufferObject.h" />
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\Collision.h" />
+    <ClInclude Include="src\Color.h" />
+    <ClInclude Include="src\CpuUsage.h" />
+    <ClInclude Include="src\DataLoader.h" />
+    <ClInclude Include="src\DebugManager.h" />
+    <ClInclude Include="src\DeferredRenderer.h" />
+    <ClInclude Include="src\drawObj.h" />
+    <ClInclude Include="src\Filter.h" />
+    <ClInclude Include="src\Font.h" />
+    <ClInclude Include="src\FrameBuffer.h" />
+    <ClInclude Include="src\FrameRate.h" />
+    <ClInclude Include="src\GpuUsage.h" />
+    <ClInclude Include="src\KeyInput.h" />
+    <ClInclude Include="src\Light.h" />
+    <ClInclude Include="src\Macro.h" />
+    <ClInclude Include="src\Main.h" />
+    <ClInclude Include="src\ManagerBase.h" />
+    <ClInclude Include="src\Math.h" />
+    <ClInclude Include="src\Matrix.h" />
+    <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\Mouseinput.h" />
+    <ClInclude Include="src\MyInclude.h" />
+    <ClInclude Include="src\OpenGL.h" />
+    <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\RefCounter.h" />
+    <ClInclude Include="src\RenderManager.h" />
+    <ClInclude Include="src\SceneBase.h" />
+    <ClInclude Include="src\SceneGame.h" />
+    <ClInclude Include="src\SceneManager.h" />
+    <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\Singleton.h" />
+    <ClInclude Include="src\Sound.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\System.h" />
+    <ClInclude Include="src\SystemMain.h" />
+    <ClInclude Include="src\SystemResource.h" />
+    <ClInclude Include="src\SystemWork.h" />
+    <ClInclude Include="src\Tag.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Timer.h" />
+    <ClInclude Include="src\typeDef.h" />
+    <ClInclude Include="src\Vector.h" />
+    <ClInclude Include="src\XInputPad.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BaseMesh.cpp" />
+    <ClCompile Include="src\BaseObject.cpp" />
+    <ClCompile Include="src\BufferObject.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
+    <ClCompile Include="src\Color.cpp" />
+    <ClCompile Include="src\CpuUsage.cpp" />
+    <ClCompile Include="src\DataLoader.cpp" />
+    <ClCompile Include="src\DebugManager.cpp" />
+    <ClCompile Include="src\DeferredRenderer.cpp" />
+    <ClCompile Include="src\drawObj.cpp" />
+    <ClCompile Include="src\Filter.cpp" />
+    <ClCompile Include="src\Font.cpp" />
+    <ClCompile Include="src\FrameBuffer.cpp" />
+    <ClCompile Include="src\FrameRate.cpp" />
+    <ClCompile Include="src\GpuUsage.cpp" />
+    <ClCompile Include="src\KeyInput.cpp" />
+    <ClCompile Include="src\Light.cpp" />
+    <ClCompile Include="src\Macro.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\ManagerBase.cpp" />
+    <ClCompile Include="src\Math.cpp" />
+    <ClCompile Include="src\Matrix.cpp" />
+    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Mouseinput.cpp" />
+    <ClCompile Include="src\MyInclude.cpp" />
+    <ClCompile Include="src\OpenGL.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\RefCounter.cpp" />
+    <ClCompile Include="src\RenderManager.cpp" />
+    <ClCompile Include="src\SceneBase.cpp" />
+    <ClCompile Include="src\SceneGame.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\Singleton.cpp" />
+    <ClCompile Include="src\Sound.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseFinal|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\System.cpp" />
+    <ClCompile Include="src\SystemMain.cpp" />
+    <ClCompile Include="src\SystemResource.cpp" />
+    <ClCompile Include="src\SystemWork.cpp" />
+    <ClCompile Include="src\Tag.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="src\typeDef.cpp" />
+    <ClCompile Include="src\Vector.cpp" />
+    <ClCompile Include="src\XInputPad.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\Brightness.frag" />
+    <None Include="shader\Brightness.vert" />
+    <None Include="shader\Emissive.frag" />
+    <None Include="shader\Emissive.vert" />
+    <None Include="shader\Gaussian.frag" />
+    <None Include="shader\Gaussian.vert" />
+    <None Include="shader\GBuffer.frag" />
+    <None Include="shader\GBuffer.vert" />
+    <None Include="shader\Lighting.comp" />
+    <None Include="shader\Lighting.frag" />
+    <None Include="shader\Lighting.vert" />
+    <None Include="shader\Luminance.frag" />
+    <None Include="shader\Luminance.vert" />
+    <None Include="shader\Standard2D.frag" />
+    <None Include="shader\Standard2D.vert" />
+    <None Include="shader\ToneMapping.frag" />
+    <None Include="shader\ToneMapping.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
