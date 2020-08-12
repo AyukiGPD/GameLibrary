@@ -14,11 +14,52 @@
 */
 #undef new
 
+//-----------------------------------------------------------------------------
+//  @brief  コンストラクタ
+//-----------------------------------------------------------------------------
+RigidBody::RigidBody()
+	: _pShape(nullptr)
+	, _pBody(nullptr)
+{
+	AddTag("RigidBody");
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  コンストラクタ
+//  @param	[in]	pParent	親
+//  @param	[in]	desc	引数リスト
+//-----------------------------------------------------------------------------
+RigidBody::RigidBody(GameObjectBase* pParent, const Desc& desc)
+	: ProcessBase(pParent)
+	, _pShape(nullptr)
+	, _pBody(nullptr)
+{
+	AddTag("RigidBody");
+	Init(desc);
+}
+
+
+//-----------------------------------------------------------------------------
+//  @brief  コンストラクタ
+//  @param	[in]	pParent	親
+//  @param	[in]	desc	引数リスト
+//  @param	[in]	myGroup	自身のグループビット
+//  @param	[in]	filter	接触するグループビット
+//-----------------------------------------------------------------------------
+RigidBody::RigidBody(GameObjectBase* pParent, const Desc& desc, u16 myGroup, u16 filter)
+	: ProcessBase(pParent)
+	, _pShape(nullptr)
+	, _pBody(nullptr)
+{
+	AddTag("RigidBody");
+	Init(desc, myGroup, filter);
+}
+
 //=============================================================================
 //!	物理コンポーネント
 //=============================================================================
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 RigidBody::~RigidBody()
 {
@@ -29,8 +70,8 @@ RigidBody::~RigidBody()
 }
 
 //-----------------------------------------------------------------------------
-//!	初期化
-//!	@param	[in]	desc	引数リスト
+//  @brief  初期化
+//  @param	[in]	desc	引数リスト
 //-----------------------------------------------------------------------------
 bool RigidBody::InitBulletObject( const Desc& desc )
 {
@@ -73,8 +114,8 @@ bool RigidBody::InitBulletObject( const Desc& desc )
 }
 
 //-----------------------------------------------------------------------------
-//!	初期化
-//!	@param	[in]	desc	引数リスト
+//  @brief  初期化
+//  @param	[in]	desc	引数リスト
 //-----------------------------------------------------------------------------
 bool RigidBody::Init(const Desc& desc)
 {
@@ -93,10 +134,10 @@ bool RigidBody::Init(const Desc& desc)
 
 
 //-----------------------------------------------------------------------------
-//!	初期化
-//!	@param	[in]	desc	引数リスト
-//!	@param	[in]	myGroup	自身のグループビット
-//!	@param	[in]	filter	接触するグループビット
+//  @brief  初期化
+//  @param	[in]	desc	引数リスト
+//  @param	[in]	myGroup	自身のグループビット
+//  @param	[in]	filter	接触するグループビット
 //-----------------------------------------------------------------------------
 bool RigidBody::Init(const Desc& desc, u16 myGroup, u16 filter)
 {
@@ -115,7 +156,7 @@ bool RigidBody::Init(const Desc& desc, u16 myGroup, u16 filter)
 
 
 //-----------------------------------------------------------------------------
-//!	更新
+//  @brief  更新
 //-----------------------------------------------------------------------------
 void RigidBody::Update()
 {
@@ -133,7 +174,7 @@ void RigidBody::Update()
 }
 
 //-----------------------------------------------------------------------------
-//!	物理更新
+//  @brief  物理更新
 //-----------------------------------------------------------------------------
 void RigidBody::RigidBodyUpdate()
 {
@@ -145,8 +186,8 @@ void RigidBody::RigidBodyUpdate()
 }
 
 //-----------------------------------------------------------------------------
-//!	接触時に呼ばれる関数
-//!	@param	[in]	contact	接触情報
+//  @brief  接触時に呼ばれる関数
+//  @param	[in]	contact	接触情報
 //-----------------------------------------------------------------------------
 void RigidBody::Contact(const ContactInfo& contact)
 {
@@ -161,8 +202,8 @@ void RigidBody::Contact(const ContactInfo& contact)
 }
 
 //-----------------------------------------------------------------------------
-//!	接触情報追加
-//!	@param	[in]	contact	接触情報
+//  @brief  接触情報追加
+//  @param	[in]	contact	接触情報
 //-----------------------------------------------------------------------------
 void RigidBody::AddContactCollision(const ContactInfo& contact)
 {
@@ -171,7 +212,7 @@ void RigidBody::AddContactCollision(const ContactInfo& contact)
 }
 
 //-----------------------------------------------------------------------------
-//!	接触情報削除
+//  @brief  接触情報削除
 //-----------------------------------------------------------------------------
 void RigidBody::ResetContactCollision()
 {
@@ -179,9 +220,9 @@ void RigidBody::ResetContactCollision()
 }
 
 //-----------------------------------------------------------------------------
-//!	接触情報タグ検索
-//!	@param	[in]	tag		タグ
-//!	@return	検索結果の接触情報
+//  @brief  接触情報タグ検索
+//  @param	[in]	tag		タグ
+//  @return	検索結果の接触情報
 //-----------------------------------------------------------------------------
 ContactInfo RigidBody::SearchContactTag(const std::string& tag)const
 {
@@ -196,9 +237,9 @@ ContactInfo RigidBody::SearchContactTag(const std::string& tag)const
 }
 
 //-----------------------------------------------------------------------------
-//!	接触情報タグ検索
-//!	@param	[in]	tags	タグ
-//!	@return	検索結果の接触情報
+//  @brief  接触情報タグ検索
+//  @param	[in]	tags	タグ
+//  @return	検索結果の接触情報
 //-----------------------------------------------------------------------------
 ContactInfo RigidBody::SearchContactTag(const Tags& tags)const
 {
@@ -212,8 +253,8 @@ ContactInfo RigidBody::SearchContactTag(const Tags& tags)const
 }
 
 //-----------------------------------------------------------------------------
-//!	反発
-//!	@param	[in]	restitution	反発係数
+//  @brief  反発
+//  @param	[in]	restitution	反発係数
 //-----------------------------------------------------------------------------
 void RigidBody::SetRestitution(f32 restitution)
 {
@@ -221,8 +262,8 @@ void RigidBody::SetRestitution(f32 restitution)
 }
 
 //-----------------------------------------------------------------------------
-//!	摩擦
-//!	@param	[in]	friction	摩擦係数
+//  @brief  摩擦
+//  @param	[in]	friction	摩擦係数
 //-----------------------------------------------------------------------------
 void RigidBody::SetFriction(f32 friction)
 {
@@ -230,8 +271,8 @@ void RigidBody::SetFriction(f32 friction)
 }
 
 //-----------------------------------------------------------------------------
-//!	物理回転
-//!	@param	[in]	torque	回転方向
+//  @brief  物理回転
+//  @param	[in]	torque	回転方向
 //-----------------------------------------------------------------------------
 void RigidBody::AddTorque(const Vector3& torque)
 {
@@ -239,8 +280,8 @@ void RigidBody::AddTorque(const Vector3& torque)
 }
 
 //-----------------------------------------------------------------------------
-//!	物理移動
-//!	@param	[in]	force	移動ベクトル
+//  @brief  物理移動
+//  @param	[in]	force	移動ベクトル
 //-----------------------------------------------------------------------------
 void RigidBody::SetForce(const Vector3& force)
 {
@@ -249,8 +290,8 @@ void RigidBody::SetForce(const Vector3& force)
 }
 
 //-----------------------------------------------------------------------------
-//!	物理移動
-//!	@param	[in]	force	移動ベクトル
+//  @brief  物理移動
+//  @param	[in]	force	移動ベクトル
 //-----------------------------------------------------------------------------
 void RigidBody::AddForce(const Vector3& force)
 {
@@ -258,8 +299,8 @@ void RigidBody::AddForce(const Vector3& force)
 }
 
 //-----------------------------------------------------------------------------
-//!	重力
-//!	@param	[in]	gravity	重力ベクトル
+//  @brief  重力
+//  @param	[in]	gravity	重力ベクトル
 //-----------------------------------------------------------------------------
 void RigidBody::SetGravity(const Vector3& gravity)
 {
@@ -267,8 +308,8 @@ void RigidBody::SetGravity(const Vector3& gravity)
 }
 
 //-----------------------------------------------------------------------------
-//!	反発
-//!	@return	反発係数
+//  @brief  反発
+//  @return	反発係数
 //-----------------------------------------------------------------------------
 f32 RigidBody::GetRestitution()const
 {
@@ -276,8 +317,8 @@ f32 RigidBody::GetRestitution()const
 }
 
 //-----------------------------------------------------------------------------
-//!	摩擦
-//!	@return	摩擦係数
+//  @brief  摩擦
+//  @return	摩擦係数
 //-----------------------------------------------------------------------------
 f32 RigidBody::GetFriction()const
 {
@@ -285,8 +326,8 @@ f32 RigidBody::GetFriction()const
 }
 
 //-----------------------------------------------------------------------------
-//!	物理回転
-//!	@return	物理回転方向
+//  @brief  物理回転
+//  @return	物理回転方向
 //-----------------------------------------------------------------------------
 Vector3 RigidBody::GetTorque()const
 {
@@ -294,8 +335,8 @@ Vector3 RigidBody::GetTorque()const
 }
 
 //-----------------------------------------------------------------------------
-//!	物理移動
-//!	@return	物理移動ベクトル
+//  @brief  物理移動
+//  @return	物理移動ベクトル
 //-----------------------------------------------------------------------------
 Vector3 RigidBody::GetForce()const
 {
@@ -304,8 +345,8 @@ Vector3 RigidBody::GetForce()const
 }
 
 //-----------------------------------------------------------------------------
-//!	重力
-//!	@return	重力ベクトル
+//  @brief  重力
+//  @return	重力ベクトル
 //-----------------------------------------------------------------------------
 Vector3 RigidBody::GetGravity()const
 {
@@ -313,15 +354,127 @@ Vector3 RigidBody::GetGravity()const
 }
 
 //-----------------------------------------------------------------------------
-//!	物理移動リセット
+//  @brief  物理移動リセット
 //-----------------------------------------------------------------------------
 void RigidBody::ClearForceTorque()
 {
 	_pBody->clearForces();
 }
 
+//-----------------------------------------------------------------------------
+//  @brief  線形速度
+//  @return	線形速度ベクトル
+//-----------------------------------------------------------------------------
 Vector3 RigidBody::GetLinearVelocity()const
 {
 	return _pBody->getLinearVelocity();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  当たり判定
+//  @retval	true	あたり
+//-----------------------------------------------------------------------------
+bool RigidBody::IsContact() const
+{
+	return !_contacts.empty();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  接触情報取得
+//  @return	接触情報の配列
+//-----------------------------------------------------------------------------
+std::vector<ContactInfo> RigidBody::GetContacts() const
+{
+	return _contacts;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  Bulletの物理オブジェクト
+//  @return	Bulletの物理オブジェクト
+//-----------------------------------------------------------------------------
+btRigidBody* RigidBody::GetbtRigidBody()
+{
+	return _pBody;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  アクティブ化
+//  @param	[in]	forceActivation	強制アクティブ	default : false
+//-----------------------------------------------------------------------------
+void RigidBody::Activate(bool forceActivation) const
+{
+	if (_pBody)
+	{
+		_pBody->activate(forceActivation);
+	}
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  コリジョン状態の設定
+//  @param	[in]	flags
+//-----------------------------------------------------------------------------
+void RigidBody::SetCollisionFlags(s32 flags)
+{
+	_pBody->setCollisionFlags(flags);
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  コリジョン状態の取得
+//  @return	コリジョンフラグ
+//-----------------------------------------------------------------------------
+s32 RigidBody::GetCollisionFlags() const
+{
+	return _pBody->getCollisionFlags();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ステート設定
+//  @param	[in]	newState	ステート
+//-----------------------------------------------------------------------------
+void RigidBody::SetActivationState(COLLISION_ACTIVATE newState)
+{
+	if (_pBody)
+	{
+		_pBody->setActivationState((s32)newState);
+	}
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ステート設定(強制)
+//  @param	[in]	newState	ステート
+//-----------------------------------------------------------------------------
+void RigidBody::SetForceActivationState(COLLISION_ACTIVATE newState)
+{
+	if (_pBody)
+	{
+		_pBody->forceActivationState((s32)newState);
+	}
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ステート取得
+//  @return	ステート
+//-----------------------------------------------------------------------------
+COLLISION_ACTIVATE RigidBody::GetActivationState() const
+{
+	if (_pBody)
+	{
+		return (COLLISION_ACTIVATE)_pBody->getActivationState();
+	}
+	return COLLISION_ACTIVATE::STATE_EMPTY;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  質量設定
+//  @param	[in]	mass	質量
+//-----------------------------------------------------------------------------
+void RigidBody::SetMass(f32 mass)
+{
+	if (_pBody)
+	{
+		btVector3 inertia;
+		_pBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
+		_pBody->setMassProps(mass, inertia);
+	}
 }
 

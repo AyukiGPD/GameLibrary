@@ -10,7 +10,9 @@
 
 class RigidBody;
 
-//!	コリジョングループ
+//-----------------------------------------------------------------------------
+//! @brief  コリジョングループ
+//-----------------------------------------------------------------------------
 enum COLLOSION_GROUP
 {
 	COLLOSION_GROUP_01 = (u16)1 << 0,
@@ -49,16 +51,18 @@ enum COLLOSION_GROUP
 	COLLOSION_GROUP_ALL = USHRT_MAX,
 };
 
-//!	接触情報構造体
+//-----------------------------------------------------------------------------
+//! @brief  接触情報構造体
+//-----------------------------------------------------------------------------
 struct ContactInfo
 {
-	//!	コンストラクタ
+	//! @brief  コンストラクタ
 	ContactInfo()
 	: _point()
 	, _pRigidBody(nullptr)
 	{}
 
-	//!	コンストラクタ
+	//! @brief  コンストラクタ
 	//!	@param	[in]	point		接触点情報
 	//!	@param	[in]	pRigidBody	接触コンポーネントポインタ
 	ContactInfo(const btManifoldPoint& point, RigidBody* pRigidBody)
@@ -66,12 +70,12 @@ struct ContactInfo
 	, _pRigidBody(pRigidBody)
 	{}
 
-	//!	nullチェック
+	//! @brief  nullチェック
 	//!	@retval	true なし
 	//!	@retval	false あり
 	bool IsEmpty()const{ return _pRigidBody == nullptr; }
 
-	//!	nullチェック
+	//! @brief  nullチェック
 	//!	@retval	true なし
 	//!	@retval	false あり
 	operator bool()const{ return !IsEmpty(); }
@@ -80,6 +84,9 @@ struct ContactInfo
 	RigidBody* _pRigidBody;	//!< 接触オブジェクトのリジッドコンポーネント
 };
 
+//-----------------------------------------------------------------------------
+//! @brief  コリジョンステータス
+//-----------------------------------------------------------------------------
 enum class COLLISION_ACTIVATE : s32
 {
 	STATE_ACTIVE_TAG			= ACTIVE_TAG,
@@ -91,6 +98,9 @@ enum class COLLISION_ACTIVATE : s32
 	STATE_EMPTY					= -1,
 };
 
+//-----------------------------------------------------------------------------
+//! @brief  コリジョン設定
+//-----------------------------------------------------------------------------
 enum COLLISION_FLAG
 {
 	STATIC_OBJECT						= btCollisionObject::CF_STATIC_OBJECT,
@@ -103,12 +113,12 @@ enum COLLISION_FLAG
 };
 
 //-----------------------------------------------------------------------------
-//!	物理コンポーネント
+//! @brief  物理コンポーネント
 //-----------------------------------------------------------------------------
 class RigidBody : public ProcessBase
 {
 public:
-	//!	形状
+	//! @brief  形状
 	enum class SHAPE
 	{
 		BOX,
@@ -120,9 +130,10 @@ public:
 		NONE
 	};
 
+	//!  @brief  設定値
 	struct Desc
 	{
-		//!	コンストラクタ
+		//! @brief  コンストラクタ
 		Desc()
 		: _position(Vector3::ZERO)
 		, _angle(Quaternion::IDENTITY)
@@ -131,7 +142,7 @@ public:
 		{
 		}
 
-		//!	コンストラクタ
+		//! @brief  コンストラクタ
 		//!	@param	[in]	position	座標
 		//!	@param	[in]	angle		姿勢
 		//!	@param	[in]	mass		質量
@@ -149,24 +160,28 @@ public:
 		f32		_mass;			//!< 質量
 		SHAPE	_shapeType;		//!< 形状タイプ
 
-		//!	形状サイズ	形状ごとに共用体で保持
+		//! @brief  形状サイズ	形状ごとに共用体で保持
 		union
 		{
 			struct
 			{
 				f32 x, y, z;
 			}_box;				//!< box
+
 			f32 _sphere;		//!< sphere
+
 			struct
 			{
 				f32 radius;
 				f32 height;
 			}_capsule;			//!< capsule
+			
 			struct
 			{
 				f32 radius;
 				f32 height;
 			}_cone;				//!< cone
+			
 			struct
 			{
 				f32 x, y, z;
@@ -177,215 +192,154 @@ public:
 public:
 	friend class CollisionManager;
 
-	//!	コンストラクタ
-	RigidBody()
-	: _pShape		(nullptr)
-	, _pBody		(nullptr)
-	{
-		AddTag("RigidBody");
-	}
+	//! @brief  コンストラクタ
+	RigidBody();
 
-	//!	コンストラクタ
+	//! @brief  コンストラクタ
 	//!	@param	[in]	pParent	親
 	//!	@param	[in]	desc	引数リスト
-	RigidBody(GameObjectBase* pParent, const Desc& desc)
-	: ProcessBase	(pParent)
-	, _pShape		(nullptr)
-	, _pBody		(nullptr)
-	{
-		AddTag("RigidBody");
-		Init(desc);
-	}
+	RigidBody(GameObjectBase* pParent, const Desc& desc);
 
-	//!	コンストラクタ
+	//! @brief  コンストラクタ
 	//!	@param	[in]	pParent	親
 	//!	@param	[in]	desc	引数リスト
 	//!	@param	[in]	myGroup	自身のグループビット
 	//!	@param	[in]	filter	接触するグループビット
-	RigidBody(GameObjectBase* pParent, const Desc& desc, u16 myGroup, u16 filter)
-	: ProcessBase	(pParent)
-	, _pShape		(nullptr)
-	, _pBody		(nullptr)
-	{
-		AddTag("RigidBody");
-		Init(desc, myGroup,filter);
-	}
+	RigidBody(GameObjectBase* pParent, const Desc& desc, u16 myGroup, u16 filter);
 
-	//!	デストラクタ
+	//! @brief  デストラクタ
 	virtual ~RigidBody();
 	
-	//!	初期化
+	//! @brief  初期化
 	//!	@param	[in]	desc	引数リスト
 	bool Init(const Desc& desc);
 
-	//!	初期化
+	//! @brief  初期化
 	//!	@param	[in]	desc	引数リスト
 	//!	@param	[in]	myGroup	自身のグループビット
 	//!	@param	[in]	filter	接触するグループビット
 	bool Init(const Desc& desc, u16 myGroup, u16 filter);
 
-	//!	更新
+	//! @brief  更新
 	void Update();
-	//!	物理更新
+
+	//! @brief  物理更新
 	void RigidBodyUpdate();
 
-
-	//!	接触時に呼ばれる関数
+	//! @brief  接触時に呼ばれる関数
 	//!	@param	[in]	contact	接触情報
 	virtual void Contact(const ContactInfo& contact);
 
-	//!	接触情報追加
+	//! @brief  接触情報追加
 	//!	@param	[in]	contact	接触情報
 	void AddContactCollision(const ContactInfo& contact);
 
-	//!	接触情報削除
+	//! @brief  接触情報削除
 	void ResetContactCollision();
 
-	//!	接触情報タグ検索
+	//! @brief  接触情報タグ検索
 	//!	@param	[in]	tag		タグ
 	//!	@return	検索結果の接触情報
 	ContactInfo SearchContactTag(const std::string& tag)const;
 
-	//!	接触情報タグ検索
+	//! @brief  接触情報タグ検索
 	//!	@param	[in]	tags	タグ
 	//!	@return	検索結果の接触情報
 	ContactInfo SearchContactTag(const Tags& tags)const;
 
-	//!	反発
+	//! @brief  反発
 	//!	@param	[in]	restitution	反発係数
 	void SetRestitution(f32 restitution);
 
-	//!	摩擦
+	//! @brief  摩擦
 	//!	@param	[in]	friction	摩擦係数
 	void SetFriction(f32 friction);
 
-	//!	物理回転
+	//! @brief  物理回転
 	//!	@param	[in]	torque	回転方向
 	void AddTorque(const Vector3& torque);
 
-	//!	物理移動
+	//! @brief  物理移動
 	//!	@param	[in]	force	移動ベクトル
 	void SetForce(const Vector3& force);
 
-	//!	物理移動
+	//! @brief  物理移動
 	//!	@param	[in]	force	移動ベクトル
 	void AddForce(const Vector3& force);
 
-	//!	重力
+	//! @brief  重力
 	//!	@param	[in]	gravity	重力ベクトル
 	void SetGravity(const Vector3& gravity);
 
-	//!	反発
+	//! @brief  反発
 	//!	@return	反発係数
 	f32 GetRestitution()const;
-	//!	摩擦
+
+	//! @brief  摩擦
 	//!	@return	摩擦係数
 	f32 GetFriction()const;
-	//!	物理回転
+
+	//! @brief  物理回転
 	//!	@return	物理回転方向
 	Vector3 GetTorque()const;
-	//!	物理移動
+
+	//! @brief  物理移動
 	//!	@return	物理移動ベクトル
 	Vector3 GetForce()const;
-	//!	重力
+
+	//! @brief  重力
 	//!	@return	重力ベクトル
 	Vector3 GetGravity()const;
 
-	//!	物理移動リセット
+	//! @brief  物理移動リセット
 	void ClearForceTorque();
 
+	//! @brief  線形速度
+	//!	@return	線形速度ベクトル
 	Vector3 GetLinearVelocity()const;
 
-	//!	当たり判定
+	//! @brief  当たり判定
 	//!	@retval	true	あたり
-	bool IsContact()const
-	{
-		return !_contacts.empty();
-	}
+	bool IsContact()const;
 
-	//!	接触情報取得
+	//! @brief  接触情報取得
 	//!	@return	接触情報の配列
-	std::vector<ContactInfo> GetContacts()const
-	{
-		return _contacts;
-	}
+	std::vector<ContactInfo> GetContacts()const;
 
-	//!	Bulletの物理オブジェクト
+	//! @brief  Bulletの物理オブジェクト
 	//!	@return	Bulletの物理オブジェクト
-	btRigidBody* GetbtRigidBody()
-	{
-		return _pBody;
-	}
+	btRigidBody* GetbtRigidBody();
 
-	//!	アクティブ化
+	//! @brief  アクティブ化
 	//!	@param	[in]	forceActivation	強制アクティブ	default : false
-	void Activate(bool forceActivation = false) const
-	{
-		if (_pBody)
-		{
-			_pBody->activate(forceActivation);
-		}
-	}
+	void Activate(bool forceActivation = false) const;
 
-	//!	コリジョン状態の設定
+	//! @brief  コリジョン状態の設定
 	//!	@param	[in]	flags
-	void SetCollisionFlags(s32 flags)
-	{
-		_pBody->setCollisionFlags(flags);
-	}
+	void SetCollisionFlags(s32 flags);
 
-	//!	コリジョン状態の取得
+	//! @brief  コリジョン状態の取得
 	//!	@return	コリジョンフラグ
-	s32 GetCollisionFlags()const
-	{
-		return _pBody->getCollisionFlags();
-	}
+	s32 GetCollisionFlags()const;
 
-	//!	ステート設定
+	//! @brief  ステート設定
 	//!	@param	[in]	newState	ステート
-	void SetActivationState(COLLISION_ACTIVATE newState)
-	{
-		if (_pBody)
-		{
-			_pBody->setActivationState((s32)newState);
-		}
-	}
+	void SetActivationState(COLLISION_ACTIVATE newState);
 
-	//!	ステート設定(強制)
+	//! @brief  ステート設定(強制)
 	//!	@param	[in]	newState	ステート
-	void SetForceActivationState(COLLISION_ACTIVATE newState)
-	{
-		if (_pBody)
-		{
-			_pBody->forceActivationState((s32)newState);
-		}
-	}
+	void SetForceActivationState(COLLISION_ACTIVATE newState);
 
-	//!	ステート取得
+	//! @brief  ステート取得
 	//!	@return	ステート
-	COLLISION_ACTIVATE GetActivationState()const
-	{
-		if (_pBody)
-		{
-			return (COLLISION_ACTIVATE)_pBody->getActivationState();
-		}
-		return COLLISION_ACTIVATE::STATE_EMPTY;
-	}
+	COLLISION_ACTIVATE GetActivationState()const;
 
-	//!	質量設定
+	//! @brief  質量設定
 	//!	@param	[in]	mass	質量
-	void SetMass(f32 mass)
-	{
-		if (_pBody)
-		{
-			btVector3 inertia;
-			_pBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
-			_pBody->setMassProps(mass, inertia);
-		}
-	}
+	void SetMass(f32 mass);
 
 private:
-	//!	初期化
+	//! @brief  初期化
 	//!	@param	[in]	desc	引数リスト
 	bool InitBulletObject(const Desc& desc);
 
@@ -393,6 +347,7 @@ private:
 	btCollisionShape*	_pShape;		//!< 形状
 	btRigidBody*		_pBody;			//!< 物理
 
+	// TODO 衝突オブジェクトの中心を設定できるようにする
 //	Vector3				_centerOffset;	//!< コリジョン座標オフセット
 
 	std::vector<ContactInfo> _contacts;	//!< 接触情報
