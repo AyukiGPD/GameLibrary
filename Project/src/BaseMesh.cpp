@@ -50,6 +50,25 @@ void MeshBase::SetParent(GameObjectBase* pParent)
 }
 
 //-----------------------------------------------------------------------------
+//  @brief  マテリアル取得
+//  @param	[in]	index	マテリアル番号
+//-----------------------------------------------------------------------------
+MaterialData* MeshBase::GetMaterial(u32 index)
+{
+	if (index >= _materials.size()) return nullptr;
+	return &_materials[index];
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  マテリアルの数を取得
+//  @return	マテリアルの数
+//-----------------------------------------------------------------------------
+size_t MeshBase::GetMaterialSize() const
+{
+	return _materials.size();
+}
+
+//-----------------------------------------------------------------------------
 //  @brief  マテリアル追加
 //  @param	[in]	material	マテリアル
 //-----------------------------------------------------------------------------
@@ -116,3 +135,22 @@ void MeshBase::BindMaterial(u32 index)
 	pShader->SetUniform(14, pMaterial->_emissiveColor);
 }
 
+//-----------------------------------------------------------------------------
+//  @brief  メッシュデータ設定
+//  @param	[in]	pMeshData	メッシュデータ
+//-----------------------------------------------------------------------------
+void MeshBase::SetMeshData(MeshData* pMeshData)
+{
+	_pMeshData.reset(pMeshData);
+	_pMeshData->AddRef();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  メッシュデータ設定
+//  @param	[in]	pMesh	メッシュ
+//-----------------------------------------------------------------------------
+void MeshBase::SetMeshData(MeshBase* pMesh)
+{
+	_pMeshData.reset(pMesh->_pMeshData.get());
+	_pMeshData->AddRef();
+}

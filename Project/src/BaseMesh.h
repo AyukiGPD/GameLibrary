@@ -94,23 +94,16 @@ public:
 
 	//! @brief  マテリアル取得
 	//!	@param	[in]	index	マテリアル番号
-	MaterialData*	GetMaterial(u32 index)
-	{
-		if (index >= _materials.size()) return nullptr;
-
-		return &_materials[index];
-	}
+	MaterialData* GetMaterial(u32 index);
 
 	//! @brief  マテリアルの数を取得
 	//!	@return	マテリアルの数
-	size_t GetMaterialSize() const
-	{
-		return _materials.size();
-	}
+	size_t GetMaterialSize() const;
 
 	//! @brief  マテリアル追加
 	//!	@param	[in]	material	マテリアル
 	size_t AddMateiral(const MaterialData& material);
+
 	//! @brief  マテリアル設定(書き換え)
 	//!	@param	[in]	index		マテリアル番号
 	//!	@param	[in]	material	マテリアル
@@ -122,19 +115,11 @@ public:
 
 	//! @brief  メッシュデータ設定
 	//!	@param	[in]	pMeshData	メッシュデータ
-	void SetMeshData(MeshData* pMeshData)
-	{
-		_pMeshData.reset(pMeshData);
-		_pMeshData->AddRef();
-	}
+	void SetMeshData(MeshData* pMeshData);
 
 	//! @brief  メッシュデータ設定
 	//!	@param	[in]	pMesh	メッシュ
-	void SetMeshData(MeshBase* pMesh)
-	{
-		_pMeshData.reset(pMesh->_pMeshData.get());
-		_pMeshData->AddRef();
-	}
+	void SetMeshData(MeshBase* pMesh);
 
 protected:
 	std::vector<MaterialData> _materials;		//!< マテリアル
