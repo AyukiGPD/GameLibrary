@@ -9,187 +9,120 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-//!	物理オブジェクト
+//! @brief  物理オブジェクト
 //-----------------------------------------------------------------------------
 class CollisionObject : public GameObjectBase
 {
 public:
 	friend RigidBody;
-	//!	コンストラクタ
+
+	//! @brief  コンストラクタ
 	CollisionObject();
-	//!	デストラクタ
+
+	//! @brief  デストラクタ
 	virtual ~CollisionObject();
 
-	//!	物理設定
+	//! @brief  物理設定
 	//!	@param	[in]	desc	引数リスト
 	//!	@param	[in]	tag		コンポーネント追加タグ	default:""
 	bool SetRigidBody(const RigidBody::Desc& desc, const std::string& tag = "");
-	//!	物理設定
+
+	//! @brief  物理設定
 	//!	@param	[in]	desc	引数リスト
 	//!	@param	[in]	myGroup	自身のグループビット
 	//!	@param	[in]	filter	接触するグループビット
 	//!	@param	[in]	tag		コンポーネント追加タグ	default:""
 	bool SetRigidBody(const RigidBody::Desc& desc, u16 myGroup, u16 filter, const std::string& tag = "");
 
-	//!	接触関数
+	//! @brief  接触関数
 	//!	@param	[in]	contact	接触情報
-	virtual void Contact(const ContactInfo& contact){ UNUSED(contact); }
+	virtual void Contact(const ContactInfo& contact);
 
-	//!	物理コンポーネント取得
+	//! @brief  物理コンポーネント取得
 	//!	@return	物理コンポーネント
-	RigidBody* GetRigidBody()
-	{
-		return _pRigidBody.get();
-	}
+	RigidBody* GetRigidBody();
 
-	//!	反発
+	//! @brief  反発
 	//!	@param	[in]	restitution	反発係数
-	void SetRestitution(f32 restitution)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetRestitution(restitution);
-	}
+	void SetRestitution(f32 restitution);
 
-	//!	摩擦
+	//! @brief  摩擦
 	//!	@param	[in]	friction	摩擦係数
-	void SetFriction(f32 friction)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetFriction(friction);
-	}
-	//!	物理移動
+	void SetFriction(f32 friction);
+
+	//! @brief  物理移動
 	//!	@param	[in]	force	移動ベクトル
-	void SetForce(const Vector3& force)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetForce(force);
-	}
-	//!	物理移動
+	void SetForce(const Vector3& force);
+
+	//! @brief  物理移動
 	//!	@param	[in]	force	移動ベクトル
-	void AddForce(const Vector3& force)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->AddForce(force);
-	}
-	//!	物理回転
+	void AddForce(const Vector3& force);
+
+	//! @brief  物理回転
 	//!	@param	[in]	torque	物理回転
-	void AddTorque(const Vector3& torque)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->AddTorque(torque);
-	}
-	//!	重力
+	void AddTorque(const Vector3& torque);
+
+	//! @brief  重力
 	//!	@param	[in]	gravity	重力ベクトル
-	void SetGravity(const Vector3& gravity)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetGravity(gravity);
-	}
+	void SetGravity(const Vector3& gravity);
 
-	//!	ステート設定
+	//! @brief  ステート設定
 	//!	@param	[in]	newState	ステート
-	void SetActivationState(COLLISION_ACTIVATE newState)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetActivationState(newState);
-	}
+	void SetActivationState(COLLISION_ACTIVATE newState);
 
-	//!	ステート設定(強制)
+	//! @brief  ステート設定(強制)
 	//!	@param	[in]	newState	ステート
-	void SetForceActivationState(COLLISION_ACTIVATE newState)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetForceActivationState(newState);
-	}
+	void SetForceActivationState(COLLISION_ACTIVATE newState);
 
-	//!	コリジョン状態の設定
+	//! @brief  コリジョン状態の設定
 	//!	@param	[in]	flags	btCollisionObject::CF系
-	void SetCollisionFlags(s32 flags)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetCollisionFlags(flags);
-	}
+	void SetCollisionFlags(s32 flags);
 
-	void SetMass(f32 mass)
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->SetMass(mass);
-	}
+	//! @brief  質量設定
+	//!	@param	[in]	mass	質量
+	void SetMass(f32 mass);
 
-	//!	反発
+	//! @brief  反発
 	//!	@return	反発係数
-	f32 GetRestitution()const
-	{
-		if (!_pRigidBody)return 0.f;
-		return _pRigidBody->GetRestitution();
-	}
-	//!	摩擦
+	f32 GetRestitution()const;
+
+	//! @brief  摩擦
 	//!	@return	摩擦係数
-	f32 GetFriction()const
-	{
-		if (!_pRigidBody)return 0.f;
-		return _pRigidBody->GetFriction();
-	}
-	//!	物理移動
+	f32 GetFriction()const;
+
+	//! @brief  物理移動
 	//!	@return	物理移動ベクトル
-	Vector3 GetForce()const
-	{
-		if (!_pRigidBody)return Vector3::ZERO;
-		return _pRigidBody->GetForce();
-	}
-	//!	物理回転
+	Vector3 GetForce()const;
+
+	//! @brief  物理回転
 	//!	@return	物理回転方向
-	Vector3 GetTorque()const
-	{
-		if (!_pRigidBody)return Vector3::ZERO;
-		return _pRigidBody->GetTorque();
-	}
-	//!	重力
+	Vector3 GetTorque()const;
+
+	//! @brief  重力
 	//!	@return	重力ベクトル
-	Vector3 GetGravity()const
-	{
-		if (!_pRigidBody)return Vector3::ZERO;
-		return _pRigidBody->GetGravity();
-	}
+	Vector3 GetGravity()const;
 
-	Vector3 GetLinearVelocity()const
-	{
-		if (!_pRigidBody)return Vector3::ZERO;
-		return _pRigidBody->GetLinearVelocity();
-	}
+	//! @brief  線形速度
+	//!	@return	線形速度ベクトル
+	Vector3 GetLinearVelocity()const;
 
-	//!	ステート取得
+	//! @brief  ステート取得
 	//!	@return	ステート
-	COLLISION_ACTIVATE GetActivationState()const
-	{
-		if (!_pRigidBody)return COLLISION_ACTIVATE::STATE_EMPTY;
-		_pRigidBody->GetActivationState();
-	}
-	//!	コリジョン状態の取得
+	COLLISION_ACTIVATE GetActivationState()const;
+
+	//! @brief  コリジョン状態の取得
 	//!	@return	btCollisionObject::CF系
-	s32 GetCollisionFlags()const
-	{
-		if (!_pRigidBody)return 0;
-		return _pRigidBody->GetCollisionFlags();
-	}
+	s32 GetCollisionFlags()const;
 
-
-	//!	アクティブ化
+	//! @brief  アクティブ化
 	//!	@param	[in]	forceActivation	強制アクティブ	default : false
-	void Activate(bool forceActivation = false) const
-	{
-		if (!_pRigidBody)return;
-		_pRigidBody->Activate(forceActivation);
-	}
+	void Activate(bool forceActivation = false) const;
 
-	//!	当たり判定
+	//! @brief  当たり判定
 	//!	@retval	true	あたり
-	bool IsHit()const
-	{
-		return _pRigidBody ? _pRigidBody->IsContact() : false;
-	}
+	bool IsHit()const;
 
-	//!	物理削除
+	//! @brief  物理削除
 	void ResetRigidBody();
 
 protected:
