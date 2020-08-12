@@ -69,15 +69,17 @@ bool KeyInputManager::GetButtons(KEYCODE pad, KEY_MODE mode) const
 	switch (mode)
 	{
 	case KEY_MODE::BUTTON:
-	return GetButtons(pad);
-	break;
+		return GetButtons(pad);
+		break;
 	case KEY_MODE::TRIGGER:
-	return GetTriggers(pad);
-	break;
+		return GetTriggers(pad);
+		break;
 	case KEY_MODE::RELEASE:
-	return GetReleases(pad);
-	break;
+		return GetReleases(pad);
+		break;
 	}
+
+	return false;
 }
 
 //-----------------------------------------------------------------------------
