@@ -358,11 +358,13 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClInclude Include="src\ManagerBase.h" />
     <ClInclude Include="src\Math.h" />
     <ClInclude Include="src\Matrix.h" />
+    <ClInclude Include="src\MeshData.h" />
     <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Mouseinput.h" />
     <ClInclude Include="src\MyInclude.h" />
     <ClInclude Include="src\OpenGL.h" />
     <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\ProcessBase.h" />
     <ClInclude Include="src\RefCounter.h" />
     <ClInclude Include="src\RenderManager.h" />
     <ClInclude Include="src\SceneBase.h" />
@@ -407,11 +409,13 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClCompile Include="src\ManagerBase.cpp" />
     <ClCompile Include="src\Math.cpp" />
     <ClCompile Include="src\Matrix.cpp" />
+    <ClCompile Include="src\MeshData.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Mouseinput.cpp" />
     <ClCompile Include="src\MyInclude.cpp" />
     <ClCompile Include="src\OpenGL.cpp" />
     <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\ProcessBase.cpp" />
     <ClCompile Include="src\RefCounter.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\SceneBase.cpp" />

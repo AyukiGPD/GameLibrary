@@ -180,6 +180,12 @@
     <ClInclude Include="src\MyInclude.h">
       <Filter>src\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\ProcessBase.h">
+      <Filter>src\System\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MeshData.h">
+      <Filter>src\System\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\stdafx.cpp">
@@ -322,6 +328,12 @@
     </ClCompile>
     <ClCompile Include="src\MyInclude.cpp">
       <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessBase.cpp">
+      <Filter>src\System\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshData.cpp">
+      <Filter>src\System\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
