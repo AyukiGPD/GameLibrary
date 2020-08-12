@@ -37,6 +37,9 @@
     <Filter Include="src\Game\Scene">
       <UniqueIdentifier>{a971a979-befb-4dbb-8289-d93ee6ca3e4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\System\Collision">
+      <UniqueIdentifier>{8ea16497-b959-4fd7-bbd5-8091b3b1f891}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h">
@@ -147,9 +150,6 @@
     <ClInclude Include="src\Shader.h">
       <Filter>src\System\Render</Filter>
     </ClInclude>
-    <ClInclude Include="src\Collision.h">
-      <Filter>src\System\Object</Filter>
-    </ClInclude>
     <ClInclude Include="src\Main.h">
       <Filter>src\System</Filter>
     </ClInclude>
@@ -188,6 +188,15 @@
     </ClInclude>
     <ClInclude Include="src\GameObjectBase.h">
       <Filter>src\System\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionManager.h">
+      <Filter>src\System\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RigidBody.h">
+      <Filter>src\System\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionObject.h">
+      <Filter>src\System\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -293,9 +302,6 @@
     <ClCompile Include="src\Shader.cpp">
       <Filter>src\System\Render</Filter>
     </ClCompile>
-    <ClCompile Include="src\Collision.cpp">
-      <Filter>src\System\Object</Filter>
-    </ClCompile>
     <ClCompile Include="src\SceneGame.cpp">
       <Filter>src\Game\Scene</Filter>
     </ClCompile>
@@ -340,6 +346,15 @@
     </ClCompile>
     <ClCompile Include="src\GameObjectBase.cpp">
       <Filter>src\System\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionManager.cpp">
+      <Filter>src\System\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RigidBody.cpp">
+      <Filter>src\System\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionObject.cpp">
+      <Filter>src\System\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

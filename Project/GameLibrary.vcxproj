@@ -335,11 +335,12 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\CollisionObject.h" />
     <ClInclude Include="src\MeshBase.h" />
     <ClInclude Include="src\GameObjectBase.h" />
     <ClInclude Include="src\BufferObject.h" />
     <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\Collision.h" />
+    <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\CpuUsage.h" />
     <ClInclude Include="src\DataLoader.h" />
@@ -368,6 +369,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClInclude Include="src\ProcessBase.h" />
     <ClInclude Include="src\RefCounter.h" />
     <ClInclude Include="src\RenderManager.h" />
+    <ClInclude Include="src\RigidBody.h" />
     <ClInclude Include="src\SceneBase.h" />
     <ClInclude Include="src\SceneGame.h" />
     <ClInclude Include="src\SceneManager.h" />
@@ -387,11 +389,12 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClInclude Include="src\XInputPad.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CollisionObject.cpp" />
     <ClCompile Include="src\MeshBase.cpp" />
     <ClCompile Include="src\GameObjectBase.cpp" />
     <ClCompile Include="src\BufferObject.cpp" />
     <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Collision.cpp" />
+    <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\CpuUsage.cpp" />
     <ClCompile Include="src\DataLoader.cpp" />
@@ -420,6 +423,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClCompile Include="src\ProcessBase.cpp" />
     <ClCompile Include="src\RefCounter.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
+    <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\SceneBase.cpp" />
     <ClCompile Include="src\SceneGame.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />

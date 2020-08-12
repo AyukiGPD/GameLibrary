@@ -204,7 +204,10 @@
 #include "ProcessBase.h"
 #include "GameObjectBase.h"
 #include "PointObject.h"
-#include "Collision.h"
+
+#include "RigidBody.h"
+#include "CollisionObject.h"
+#include "CollisionManager.h"
 
 
 //----	インプット
