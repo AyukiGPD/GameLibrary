@@ -87,28 +87,19 @@ public:
 
 	//! @brief  ステート取得
 	//! @return コントローラーステート
-	XINPUT_STATE GetState()const{ return _state; }
+	XINPUT_STATE GetState()const;
 
 	//! @brief  生キー
 	//! @param  [in]    pad キーコード
-	bool GetButtons(XINPUTPAD pad) const
-	{
-		return (_buttons & (u32)pad) != 0;
-	}
+	bool GetButtons(XINPUTPAD pad) const;
 
 	//! @brief  トリガー
 	//! @param  [in]    pad キーコード
-	bool GetTriggers(XINPUTPAD pad) const
-	{
-		return (_triggers & (u32)pad) != 0;
-	}
+	bool GetTriggers(XINPUTPAD pad) const;
 
 	//! @brief  リリース
 	//! @param  [in]    pad キーコード
-	bool GetReleases(XINPUTPAD pad) const
-	{
-		return (_releases & (u32)pad) != 0;
-	}
+	bool GetReleases(XINPUTPAD pad) const;
 
 	//! @brief  キースケール取得
 	//! @param  [in]    pad キーコード
@@ -126,10 +117,10 @@ public:
 	Vector2 GetStickR( f32 minVal = 0.2f ) const;
 
 	//! @brief  コントローラーの有無
-	bool IsController() const { return _isController; }
+	bool IsController() const;
 
 	//! @brief  バイブレーションON/OFF
-	bool IsVibrate()const{ return _isVibration; }
+	bool IsVibrate()const;
 
 private:
 	//! @brief  接続状態の取得
