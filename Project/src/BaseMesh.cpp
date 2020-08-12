@@ -8,18 +8,19 @@
 //=============================================================================
 #include "stdafx.h"
 
+//  @brief  デフォルトマテリアル情報
 const MaterialData MaterialData::DEFAULT = MaterialData(MATERIAL_COLOR::MATERIAL, Color(128), 0.0f, 0.0f, Vector3::ONE, nullptr);
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 MeshBase::MeshBase()
 :_pParent(nullptr)
 {
 }
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
-//!	@param	[in]	pParent	親オブジェクト
+//  @brief  コンストラクタ
+//	@param	[in]	pParent	親オブジェクト
 //-----------------------------------------------------------------------------
 MeshBase::MeshBase(GameObjectBase* pParent)
 : _pParent(pParent)
@@ -27,7 +28,7 @@ MeshBase::MeshBase(GameObjectBase* pParent)
 }
 
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 MeshBase::~MeshBase()
 {
@@ -39,8 +40,8 @@ MeshBase::~MeshBase()
 }
 
 //-----------------------------------------------------------------------------
-//!	親オブジェクト設定
-//!	@param	[in]	pParent	親オブジェクト
+//  @brief  親オブジェクト設定
+// 	@param	[in]	pParent	親オブジェクト
 //-----------------------------------------------------------------------------
 void MeshBase::SetParent(GameObjectBase* pParent)
 {
@@ -49,8 +50,8 @@ void MeshBase::SetParent(GameObjectBase* pParent)
 }
 
 //-----------------------------------------------------------------------------
-//!	マテリアル追加
-//!	@param	[in]	material	マテリアル
+//  @brief  マテリアル追加
+//  @param	[in]	material	マテリアル
 //-----------------------------------------------------------------------------
 size_t MeshBase::AddMateiral(const MaterialData& material)
 {
@@ -60,9 +61,9 @@ size_t MeshBase::AddMateiral(const MaterialData& material)
 }
 
 //-----------------------------------------------------------------------------
-//!	マテリアル設定(書き換え)
-//!	@param	[in]	index		マテリアル番号
-//!	@param	[in]	material	マテリアル
+//  @brief  マテリアル設定(書き換え)
+//  @param	[in]	index		マテリアル番号
+//  @param	[in]	material	マテリアル
 //-----------------------------------------------------------------------------
 void MeshBase::SetMaterial(u32 index, const MaterialData& material)
 {
@@ -70,7 +71,6 @@ void MeshBase::SetMaterial(u32 index, const MaterialData& material)
 	if (!pMaterial){ return; }
 	_materials[index] = material;
 }
-
 
 /*!
 	@todo
@@ -83,8 +83,8 @@ void MeshBase::SetMaterial(u32 index, const MaterialData& material)
 	設計に時間がかかるかもしれないので後回し
 */
 //-----------------------------------------------------------------------------
-//!	マテリアルの適応
-//!	@param	[in]	index	マテリアル番号 default:0
+//  @brief  マテリアルの適応
+//  @param	[in]	index	マテリアル番号 default:0
 //-----------------------------------------------------------------------------
 void MeshBase::BindMaterial(u32 index)
 {
@@ -114,45 +114,5 @@ void MeshBase::BindMaterial(u32 index)
 	pShader->SetUniform(13, pMaterial->_metalness);
 
 	pShader->SetUniform(14, pMaterial->_emissiveColor);
-
-
 }
-
-
-
-//-----------------------------------------------------------------------------
-//!	コンストラクタ
-//-----------------------------------------------------------------------------
-ProcessBase::ProcessBase()
-:_pParent(nullptr)
-{
-}
-
-//-----------------------------------------------------------------------------
-//!	コンストラクタ
-//!	@param	[in]	pParent	親オブジェクト
-//-----------------------------------------------------------------------------
-ProcessBase::ProcessBase(GameObjectBase* pParent)
-:_pParent(pParent)
-{
-}
-
-//-----------------------------------------------------------------------------
-//!	デストラクタ
-//-----------------------------------------------------------------------------
-ProcessBase::~ProcessBase()
-{
-}
-
-
-//-----------------------------------------------------------------------------
-//!	親オブジェクト設定
-//!	@param	[in]	pParent	親オブジェクト
-//-----------------------------------------------------------------------------
-void ProcessBase::SetParent(GameObjectBase* pParent)
-{
-	if(!pParent){ return; }
-	_pParent = pParent;
-}
-
 
