@@ -9,7 +9,7 @@
 #include "stdafx.h"
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+// @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 KeyInputManager::KeyInputManager()
 {
@@ -22,14 +22,14 @@ KeyInputManager::KeyInputManager()
 }
 
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+// @brief  デストラクタ
 //-----------------------------------------------------------------------------
 KeyInputManager::~KeyInputManager()
 {
 }
 
 //-----------------------------------------------------------------------------
-//!	更新
+// @brief  更新
 //-----------------------------------------------------------------------------
 void KeyInputManager::Update()
 {
@@ -57,5 +57,62 @@ void KeyInputManager::Update()
 		_releases[i] = (buttons ^ oldButtons) & oldButtons;
 
 	}
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  キー取得
+//  @param  [in]    pad     キーコード
+//  @param  [in]    mode    取得モード
+//-----------------------------------------------------------------------------
+bool KeyInputManager::GetButtons(KEYCODE pad, KEY_MODE mode) const
+{
+	switch (mode)
+	{
+	case KEY_MODE::BUTTON:
+	return GetButtons(pad);
+	break;
+	case KEY_MODE::TRIGGER:
+	return GetTriggers(pad);
+	break;
+	case KEY_MODE::RELEASE:
+	return GetReleases(pad);
+	break;
+	}
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  生キー取得
+//  @param  [in]    pad キーコード
+//-----------------------------------------------------------------------------
+bool KeyInputManager::GetButtons(KEYCODE pad) const
+{
+	u32 padVal = (u32)pad;
+	u32 index = padVal == 0 ? 0 : (padVal / 32);
+	u32 shift = padVal - (index * 32);
+	return (_buttons[index] & (1 << shift)) != 0;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  トリガー
+//  @param  [in]    pad キーコード
+//-----------------------------------------------------------------------------
+bool KeyInputManager::GetTriggers(KEYCODE pad) const
+{
+	u32 padVal = (u32)pad;
+	u32 index = padVal == 0 ? 0 : (padVal / 32);
+	u32 shift = padVal - (index * 32);
+	return (_triggers[index] & (1 << shift)) != 0;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  リリース
+//  @param  [in]    pad キーコード
+//-----------------------------------------------------------------------------
+bool KeyInputManager::GetReleases(KEYCODE pad) const
+{
+	u32 padVal = (u32)pad;
+	u32 index = padVal == 0 ? 0 : (padVal / 32);
+	u32 shift = padVal - (index * 32);
+	return (_releases[index] & (1 << shift)) != 0;
 }
 

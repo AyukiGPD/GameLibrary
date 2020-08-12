@@ -8,15 +8,19 @@
 //=============================================================================
 #pragma once
 
-//!	取得モード
+//-----------------------------------------------------------------------------
+//! @brief  取得モード
+//-----------------------------------------------------------------------------
 enum class KEY_MODE
 {
-	BUTTON,
-	TRIGGER,
-	RELEASE,
+	BUTTON,		//!< 入力
+	TRIGGER,	//!< 押す
+	RELEASE,	//!< 離す
 };
 
-//!	キーコード
+//-----------------------------------------------------------------------------
+//! @brief  キーコード
+//-----------------------------------------------------------------------------
 enum class KEYCODE : u8
 {
 	PAD_LBUTTON				= VK_LBUTTON,				//!< 0x01	マウス左ボタン
@@ -274,73 +278,43 @@ enum class KEYCODE : u8
 	//	0xFF : reserved
 };
 
+//-----------------------------------------------------------------------------
+//! @brief  キー入力マネージャ
+//-----------------------------------------------------------------------------
 class KeyInputManager : public ManagerBase
 {
 public:
-	//!	コンストラクタ
+	//! @brief  コンストラクタ
 	KeyInputManager();
-	//!	デストラクタ
+	//! @brief  デストラクタ
 	virtual ~KeyInputManager();
 
-	//!	更新
+	//! @brief  更新
 	void Update();
 
-	//!	キー取得
-	//!	@param	[in]	pad		キーコード
-	//!	@param	[in]	mode	取得モード
-	bool GetButtons(KEYCODE pad, KEY_MODE mode) const
-	{
-		switch(mode)
-		{
-		case KEY_MODE::BUTTON:
-			return GetButtons(pad);
-			break;
-		case KEY_MODE::TRIGGER:
-			return GetTriggers(pad);
-			break;
-		case KEY_MODE::RELEASE:
-			return GetReleases(pad);
-			break;
-		}
-	}
+	//! @brief  キー取得
+	//! @param  [in]    pad     キーコード
+	//! @param  [in]    mode    取得モード
+	bool GetButtons(KEYCODE pad, KEY_MODE mode) const;
 
-	//!	生キー取得
-	//!	@param	[in]	pad	キーコード
-	bool GetButtons(KEYCODE pad) const
-	{
-		u32 padVal = (u32)pad;
-		u32 index = padVal == 0 ? 0 : (padVal / 32);
-		u32 shift = padVal - (index * 32);
-		return (_buttons[index] & (1 << shift)) != 0;
-	}
-	//!	トリガー
-	//!	@param	[in]	pad	キーコード
-	bool GetTriggers(KEYCODE pad) const
-	{
-		u32 padVal = (u32)pad;
-		u32 index = padVal == 0 ? 0 : (padVal / 32);
-		u32 shift = padVal - (index * 32);
-		return (_triggers[index] & (1 << shift)) != 0;
-	}
-	//!	リリース
-	//!	@param	[in]	pad	キーコード
-	bool GetReleases(KEYCODE pad) const
-	{
-		u32 padVal = (u32)pad;
-		u32 index = padVal == 0 ? 0 : (padVal / 32);
-		u32 shift = padVal - (index * 32);
-		return (_releases[index] & (1 << shift)) != 0;
-	}
+	//! @brief  生キー取得
+	//! @param  [in]    pad キーコード
+	bool GetButtons(KEYCODE pad) const;
+
+	//! @brief  トリガー
+	//! @param  [in]    pad キーコード
+	bool GetTriggers(KEYCODE pad) const;
+
+	//! @brief  リリース
+	//! @param  [in]    pad キーコード
+	bool GetReleases(KEYCODE pad) const;
 
 private:
 	u32		_buttons[8];		//!< 生キーデータ
 	u32		_triggers[8];		//!< トリガーキーデータ
 	u32		_releases[8];		//!< リリースキーデータ
-
-public:
 };
 
-
+// マネージャ取得関数生成
 MANAGER_INTERFACE(KeyInputManager, KeyInput);
-
 
