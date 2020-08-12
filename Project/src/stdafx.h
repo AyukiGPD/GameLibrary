@@ -202,7 +202,7 @@
 #include "MeshData.h"
 #include "MeshBase.h"
 #include "ProcessBase.h"
-#include "BaseObject.h"
+#include "GameObjectBase.h"
 #include "PointObject.h"
 #include "Collision.h"
 

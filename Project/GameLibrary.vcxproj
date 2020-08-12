@@ -336,7 +336,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\MeshBase.h" />
-    <ClInclude Include="src\BaseObject.h" />
+    <ClInclude Include="src\GameObjectBase.h" />
     <ClInclude Include="src\BufferObject.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Collision.h" />
@@ -388,7 +388,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MeshBase.cpp" />
-    <ClCompile Include="src\BaseObject.cpp" />
+    <ClCompile Include="src\GameObjectBase.cpp" />
     <ClCompile Include="src\BufferObject.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Collision.cpp" />

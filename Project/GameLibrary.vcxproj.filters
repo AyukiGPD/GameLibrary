@@ -138,9 +138,6 @@
     <ClInclude Include="src\Macro.h">
       <Filter>src\System</Filter>
     </ClInclude>
-    <ClInclude Include="src\BaseObject.h">
-      <Filter>src\System\Object</Filter>
-    </ClInclude>
     <ClInclude Include="src\Particle.h">
       <Filter>src\System\Render</Filter>
     </ClInclude>
@@ -187,6 +184,9 @@
       <Filter>src\System\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\PointObject.h">
+      <Filter>src\System\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjectBase.h">
       <Filter>src\System\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -284,9 +284,6 @@
     <ClCompile Include="src\Macro.cpp">
       <Filter>src\System</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseObject.cpp">
-      <Filter>src\System\Object</Filter>
-    </ClCompile>
     <ClCompile Include="src\Particle.cpp">
       <Filter>src\System\Render</Filter>
     </ClCompile>
@@ -339,6 +336,9 @@
       <Filter>src\System\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\PointObject.cpp">
+      <Filter>src\System\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjectBase.cpp">
       <Filter>src\System\Object</Filter>
     </ClCompile>
   </ItemGroup>
