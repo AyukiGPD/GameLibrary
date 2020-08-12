@@ -203,6 +203,7 @@
 #include "MeshBase.h"
 #include "ProcessBase.h"
 #include "BaseObject.h"
+#include "PointObject.h"
 #include "Collision.h"
 
 
@@ -227,8 +228,6 @@
 #include "Font.h"
 
 #include "SystemResource.h"
-
-
 
 
 #include "Camera.h"

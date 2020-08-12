@@ -186,6 +186,9 @@
     <ClInclude Include="src\MeshBase.h">
       <Filter>src\System\Object</Filter>
     </ClInclude>
+    <ClInclude Include="src\PointObject.h">
+      <Filter>src\System\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\stdafx.cpp">
@@ -333,6 +336,9 @@
       <Filter>src\System\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\MeshBase.cpp">
+      <Filter>src\System\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PointObject.cpp">
       <Filter>src\System\Object</Filter>
     </ClCompile>
   </ItemGroup>

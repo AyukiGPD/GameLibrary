@@ -457,13 +457,3 @@ protected:
 
 	bool _enable;	//!< 有効フラグ
 };
-
-//!	なにもなしオブジェクト
-class PointObject : public GameObjectBase
-{
-public:
-	PointObject(){}
-	virtual ~PointObject(){}
-};
-
-

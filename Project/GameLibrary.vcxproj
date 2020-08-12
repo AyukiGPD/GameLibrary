@@ -364,6 +364,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClInclude Include="src\MyInclude.h" />
     <ClInclude Include="src\OpenGL.h" />
     <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\PointObject.h" />
     <ClInclude Include="src\ProcessBase.h" />
     <ClInclude Include="src\RefCounter.h" />
     <ClInclude Include="src\RenderManager.h" />
@@ -415,6 +416,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClCompile Include="src\MyInclude.cpp" />
     <ClCompile Include="src\OpenGL.cpp" />
     <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\PointObject.cpp" />
     <ClCompile Include="src\ProcessBase.cpp" />
     <ClCompile Include="src\RefCounter.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
