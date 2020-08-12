@@ -22,63 +22,63 @@
 class CollisionManager : public ManagerBase
 {
 public:
-	//!	コンストラクタ
+	//! @brief  コンストラクタ
 	CollisionManager();
-	//!	デストラクタ
+
+	//! @brief  デストラクタ
 	virtual ~CollisionManager();
 
-	//!	初期化
+	//! @brief  初期化
 	void Init();
-	//!	更新
+
+	//! @brief  更新
 	void Update();
-	//!	描画
+
+	//! @brief  描画
 	void Render();
-	//!	終了
+
+	//! @brief  終了
 	void Exit();
 
-	btDiscreteDynamicsWorld* GetDynamicsWorld(){ return _pDynamicsWorld; }
+	//! @brief  衝突検出のためのインタフェース
+	btDiscreteDynamicsWorld* GetDynamicsWorld();
 
-	//!	物理コリジョン追加
+	//! @brief  物理コリジョン追加
 	//!	@param	[in]	pBody	物理コンポーネント
 	void AddRigidBody(RigidBody* pBody);
 
-	//!	物理コリジョン追加
+	//! @brief  物理コリジョン追加
 	//!	@param	[in]	pBody	物理コンポーネント
 	//!	@param	[in]	myGroup	自身のグループビット
 	//!	@param	[in]	filter	接触するグループビット
 	void AddRigidBody(RigidBody* pBody, u16 myGroup, u16 filter);
 
-	//!	物理コリジョン削除
+	//! @brief  物理コリジョン削除
 	//!	@param	[in]	pBody	物理コンポーネント
 	void RemoveRigidBody(RigidBody* pBody);
 
-	//!	グローバルな重力設定
+	//! @brief  グローバルな重力設定
 	//!	@param	[in]	gravity	重力ベクトル
 	void SetGravity(const Vector3& gravity);
 
-	//!	デバッグ表示設定
+	//! @brief  デバッグ表示設定
 	//!	@param	[in]	isDebugRender	表示フラグ
 	void SetDebugRender(bool isDebugRender);
-	//!	デバッグ表示取得
+	
+	//! @brief  デバッグ表示取得
 	//!	@return 表示フラグ
-	bool GetDebugRender()const{ return _isDebugRender; }
+	bool GetDebugRender()const;
 
-	//!	コリジョンコンタクトのコールバック関数
+	//! @brief  コリジョンコンタクトのコールバック関数
 	static bool ContactProcessed(btManifoldPoint& p, void* a, void* b);
 
-	//!	物理更新フラグ設定
+	//! @brief  物理更新フラグ設定
 	//!	@param	[in]	更新フラグ
-	void SetUpdateFlag(bool isUpdate)
-	{
-		_isUpdate = isUpdate;
-	}
+	void SetUpdateFlag(bool isUpdate);
 
-	//!	更新フラグ
+	//! @brief  更新フラグ
 	//!	@retval	false	物理の更新をしない
-	bool IsUpdate()const
-	{
-		return _isUpdate;
-	}
+	bool IsUpdate()const;
 
 private:
 	btDefaultCollisionConfiguration*	 _pCollisionConfiguration;	//!< 衝突検出スタックアロケータ
@@ -95,4 +95,5 @@ private:
 
 };
 
+// マネージャ取得関数生成
 MANAGER_INTERFACE(CollisionManager, Collision);

@@ -15,7 +15,7 @@
 #undef new
 
 //=============================================================================
-//!	デバッグ描画クラス
+//! @brief  デバッグ描画クラス
 //=============================================================================
 class MyBulletDebugDraw : public btIDebugDraw
 {
@@ -23,12 +23,12 @@ private:
 	//デバッグモード
 	s32 m_DebugMode;
 public:
-	//コストラクタ
+	//! @brief  コストラクタ
 	MyBulletDebugDraw()
 		: m_DebugMode(1)
 	{}
 
-	//	ラインの描画
+	//! @brief  ラインの描画
 	void drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 	{
 		Color lineColor;
@@ -36,7 +36,7 @@ public:
 		Render3D::Line(from, to, lineColor);
 	}
 
-	//	ラインの描画
+	//! @brief  ラインの描画
 	void drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor)
 	{
 		Color fromLineColor;
@@ -46,8 +46,7 @@ public:
 		Render3D::Line(from, to, fromLineColor, toLineColor);
 	}
 
-
-	//	接触点の描画
+	//! @brief  接触点の描画
 	void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
 	{
 		UNUSED(lifeTime);
@@ -58,27 +57,27 @@ public:
 		Render3D::Line(from, to, lineColor);
 	}
 
-	//	エラーの表示
+	//! @brief  エラーの表示
 	void reportErrorWarning(const char* warningString)
 	{
 		DEBUG_LOG(warningString);
 	}
 
 	//	未実装
-	//	３Ｄテキストの描画
+	//! @brief  ３Ｄテキストの描画
 	void draw3dText(const btVector3& location, const char* textString)
 	{
 		UNUSED(location);
 		UNUSED(textString);
 	}
 
-	//	デバッグモードの設定
+	//! @brief  デバッグモードの設定
 	void setDebugMode(int debugMode)
 	{
 		m_DebugMode = debugMode;
 	}
 
-	//	デバッグモードの取得
+	//! @brief  デバッグモードの取得
 	int getDebugMode() const
 	{
 		return m_DebugMode;
@@ -86,10 +85,10 @@ public:
 };
 
 //=============================================================================
-//!	Bullet管理クラス
+//	Bullet管理クラス
 //=============================================================================
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 CollisionManager::CollisionManager()
 : _pCollisionConfiguration(nullptr)
@@ -104,18 +103,18 @@ CollisionManager::CollisionManager()
 }
 
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 CollisionManager::~CollisionManager()
 {
 	Exit();
 }
 
-//! コンタクトのコールバック
+//  コンタクトのコールバック
 extern ContactProcessedCallback gContactProcessedCallback;
 
 //-----------------------------------------------------------------------------
-//!	初期化
+//  @brief  初期化
 //-----------------------------------------------------------------------------
 void CollisionManager::Init()
 {
@@ -138,7 +137,7 @@ void CollisionManager::Init()
 }
 
 //-----------------------------------------------------------------------------
-//!	更新
+//  @brief  更新
 //-----------------------------------------------------------------------------
 void CollisionManager::Update()
 {
@@ -167,7 +166,7 @@ void CollisionManager::Update()
 }
 
 //-----------------------------------------------------------------------------
-//!	描画
+//  @brief  描画
 //-----------------------------------------------------------------------------
 void CollisionManager::Render()
 {
@@ -180,7 +179,7 @@ void CollisionManager::Render()
 }
 
 //-----------------------------------------------------------------------------
-//!	終了
+//  @brief  終了
 //-----------------------------------------------------------------------------
 void CollisionManager::Exit()
 {
@@ -193,8 +192,16 @@ void CollisionManager::Exit()
 }
 
 //-----------------------------------------------------------------------------
-//!	物理コリジョン追加
-//!	@param	[in]	pBody	物理コンポーネント
+//  @brief  衝突検出のためのインタフェース
+//-----------------------------------------------------------------------------
+btDiscreteDynamicsWorld* CollisionManager::GetDynamicsWorld()
+{
+	return _pDynamicsWorld;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  物理コリジョン追加
+//  @param	[in]	pBody	物理コンポーネント
 //-----------------------------------------------------------------------------
 void CollisionManager::AddRigidBody(RigidBody* pBody)
 {
@@ -204,10 +211,10 @@ void CollisionManager::AddRigidBody(RigidBody* pBody)
 }
 
 //-----------------------------------------------------------------------------
-//!	物理コリジョン追加
-//!	@param	[in]	pBody	物理コンポーネント
-//!	@param	[in]	myGroup	自身のグループビット
-//!	@param	[in]	filter	接触するグループビット
+//  @brief  物理コリジョン追加
+//  @param	[in]	pBody	物理コンポーネント
+//  @param	[in]	myGroup	自身のグループビット
+//  @param	[in]	filter	接触するグループビット
 //-----------------------------------------------------------------------------
 void CollisionManager::AddRigidBody(RigidBody* pBody, u16 myGroup, u16 filter)
 {
@@ -217,8 +224,8 @@ void CollisionManager::AddRigidBody(RigidBody* pBody, u16 myGroup, u16 filter)
 }
 
 //-----------------------------------------------------------------------------
-//!	物理コリジョン削除
-//!	@param	[in]	pBody	物理コンポーネント
+//  @brief  物理コリジョン削除
+//  @param	[in]	pBody	物理コンポーネント
 //-----------------------------------------------------------------------------
 void CollisionManager::RemoveRigidBody(RigidBody* pBody)
 {
@@ -238,17 +245,35 @@ void CollisionManager::RemoveRigidBody(RigidBody* pBody)
 }
 
 //-----------------------------------------------------------------------------
-//!	グローバルな重力設定
-//!	@param	[in]	gravity	重力ベクトル
+//  @brief  グローバルな重力設定
+//  @param	[in]	gravity	重力ベクトル
 //-----------------------------------------------------------------------------
 void CollisionManager::SetGravity(const Vector3& gravity)
 {
 	_pDynamicsWorld->setGravity(gravity);
 }
 
+//-----------------------------------------------------------------------------
+//  @brief  デバッグ表示設定
+//  @param	[in]	isDebugRender	表示フラグ
+//-----------------------------------------------------------------------------
+void CollisionManager::SetDebugRender(bool isDebugRender)
+{
+	_isDebugRender = isDebugRender;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  デバッグ表示取得
+//  @return 表示フラグ
+//-----------------------------------------------------------------------------
+bool CollisionManager::GetDebugRender() const
+{
+	return _isDebugRender;
+}
+
 //	@bug Contactの先で自殺をすると2つ目のポインタが空になる
 //-----------------------------------------------------------------------------
-//!	コリジョンコンタクトのコールバック関数
+//  @brief  コリジョンコンタクトのコールバック関数
 //-----------------------------------------------------------------------------
 bool CollisionManager::ContactProcessed(btManifoldPoint& p, void* a, void* b)
 {
@@ -282,10 +307,19 @@ bool CollisionManager::ContactProcessed(btManifoldPoint& p, void* a, void* b)
 }
 
 //-----------------------------------------------------------------------------
-//!	デバッグ表示設定
-//!	@param	[in]	isDebugRender	表示フラグ
+//  @brief  物理更新フラグ設定
+//  @param	[in]	更新フラグ
 //-----------------------------------------------------------------------------
-void CollisionManager::SetDebugRender(bool isDebugRender)
+void CollisionManager::SetUpdateFlag(bool isUpdate)
 {
-	_isDebugRender = isDebugRender;
+	_isUpdate = isUpdate;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  更新フラグ
+//  @retval	false	物理の更新をしない
+//-----------------------------------------------------------------------------
+bool CollisionManager::IsUpdate() const
+{
+	return _isUpdate;
 }
