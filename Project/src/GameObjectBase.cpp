@@ -9,7 +9,7 @@
 #include "stdafx.h"
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 GameObjectBase::GameObjectBase()
 : _pParentObject	(nullptr)
@@ -22,10 +22,10 @@ GameObjectBase::GameObjectBase()
 	Init();
 }
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
-//!	@param	[in]	position	座標
-//!	@param	[in]	rotate		回転
-//!	@param	[in]	Scale		サイズ	default:Vector3::ONE
+//  @brief  コンストラクタ
+//  @param	[in]	position	座標
+//  @param	[in]	rotate		回転
+//  @param	[in]	Scale		サイズ	default:Vector3::ONE
 //-----------------------------------------------------------------------------
 GameObjectBase::GameObjectBase(const Vector3& position, const Quaternion& rotate, const Vector3& scale, bool enable)
 : _pParentObject	(nullptr)
@@ -40,7 +40,7 @@ GameObjectBase::GameObjectBase(const Vector3& position, const Quaternion& rotate
 }
 
 //-----------------------------------------------------------------------------
-//! デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 GameObjectBase::~GameObjectBase()
 {
@@ -58,8 +58,8 @@ GameObjectBase::~GameObjectBase()
 }
 
 //-----------------------------------------------------------------------------
-//!	親設定
-//!@param	[in]	pParentObject	親のポインタ
+//  @brief  親設定
+//  @param	[in]	pParentObject	親のポインタ
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetParentObject(GameObjectBase* pParentObject)
 {
@@ -75,9 +75,9 @@ void GameObjectBase::SetParentObject(GameObjectBase* pParentObject)
 }
 
 //-----------------------------------------------------------------------------
-//!	親取得
-//!	@return	親オブジェクトポインタ
-//!	@retval	nullptr	親なし
+//  @brief  親取得
+//  @return	親オブジェクトポインタ
+//  @retval	nullptr	親なし
 //-----------------------------------------------------------------------------
 GameObjectBase* GameObjectBase::GetParentObject()const
 {
@@ -86,8 +86,8 @@ GameObjectBase* GameObjectBase::GetParentObject()const
 
 
 //-----------------------------------------------------------------------------
-//!	子追加
-//!@param	[in]	pChildObject	子のポインタ
+//  @brief  子追加
+//  @param	[in]	pChildObject	子のポインタ
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddChildObject(GameObjectBase* pChildObject)
 {
@@ -125,7 +125,7 @@ s32 GameObjectBase::ReleaseChildObject(GameObjectBase* pChildObject)
 }
 
 //-----------------------------------------------------------------------------
-//!	親からの解放
+//  @brief  親からの解放
 //-----------------------------------------------------------------------------
 void GameObjectBase::ReleaseParent()
 {
@@ -137,10 +137,10 @@ void GameObjectBase::ReleaseParent()
 }
 
 //-----------------------------------------------------------------------------
-//!	子オブジェクトタグ検索
-//!	@param	[in]	tag	オブジェクトのタグ
-//!	@return	オブジェクトのポインタ
-//!	@retval	nullptr	データなし
+//  @brief  子オブジェクトタグ検索
+//  @param	[in]	tag	オブジェクトのタグ
+//  @return	オブジェクトのポインタ
+//  @retval	nullptr	データなし
 //-----------------------------------------------------------------------------
 GameObjectBase* GameObjectBase::GetChildObject(const std::string& tag)const
 {
@@ -155,7 +155,7 @@ GameObjectBase* GameObjectBase::GetChildObject(const std::string& tag)const
 }
 
 //-----------------------------------------------------------------------------
-//!	子オブジェクトの解放
+//  @brief  子オブジェクトの解放
 //-----------------------------------------------------------------------------
 void GameObjectBase::ReleaseChildObjects()
 {
@@ -166,8 +166,8 @@ void GameObjectBase::ReleaseChildObjects()
 }
 
 //-----------------------------------------------------------------------------
-//!	ワールド行列設定
-//!	@param	[in]	matrix		行列
+//  @brief  ワールド行列設定
+//  @param	[in]	matrix		行列
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetWorldMatrix(const Matrix& matrix)
 {
@@ -181,8 +181,8 @@ void GameObjectBase::SetWorldMatrix(const Matrix& matrix)
 }
 
 //-----------------------------------------------------------------------------
-//!	ワールド回転
-//!	@param	[in]	rotate		回転
+//  @brief  ワールド回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetWorldPosition(const Vector3& position)
 {
@@ -193,8 +193,8 @@ void GameObjectBase::SetWorldPosition(const Vector3& position)
 }
 
 //-----------------------------------------------------------------------------
-//!	ワールド回転
-//!	@param	[in]	rotate		回転
+//  @brief  ワールド回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetWorldRotate(const Quaternion& rotate)
 {
@@ -205,8 +205,8 @@ void GameObjectBase::SetWorldRotate(const Quaternion& rotate)
 }
 
 //-----------------------------------------------------------------------------
-//!	ワールドサイズ
-//!	@param	[in]	scale		サイズ
+//  @brief  ワールドサイズ
+//  @param	[in]	scale		サイズ
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetWorldScale(const Vector3& scale)
 {
@@ -217,8 +217,8 @@ void GameObjectBase::SetWorldScale(const Vector3& scale)
 }
 
 //-----------------------------------------------------------------------------
-//!	ワールド回転
-//!	@param	[in]	rotate		回転
+//  @brief  ワールド回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddWorldPosition(const Vector3& position)
 {
@@ -229,8 +229,8 @@ void GameObjectBase::AddWorldPosition(const Vector3& position)
 }
 
 //-----------------------------------------------------------------------------
-//!	ワールド回転
-//!	@param	[in]	rotate		回転
+//  @brief  ワールド回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddWorldRotate(const Quaternion& rotate)
 {
@@ -241,8 +241,8 @@ void GameObjectBase::AddWorldRotate(const Quaternion& rotate)
 }
 
 //-----------------------------------------------------------------------------
-//!	ワールドサイズ
-//!	@param	[in]	scale		サイズ
+//  @brief  ワールドサイズ
+//  @param	[in]	scale		サイズ
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddWorldScale(const Vector3& scale)
 {
@@ -254,8 +254,8 @@ void GameObjectBase::AddWorldScale(const Vector3& scale)
 
 
 //-----------------------------------------------------------------------------
-//!	ローカル行列
-//!	@param	[in]	matrix		行列
+//  @brief  ローカル行列
+//  @param	[in]	matrix		行列
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetLocalMatrix(const Matrix& matrix)
 {
@@ -266,8 +266,8 @@ void GameObjectBase::SetLocalMatrix(const Matrix& matrix)
 }
 
 //-----------------------------------------------------------------------------
-//!	ローカル座標
-//!	@param	[in]	position	座標
+//  @brief  ローカル座標
+//  @param	[in]	position	座標
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetLocalPosition(const Vector3& position)
 {
@@ -276,8 +276,8 @@ void GameObjectBase::SetLocalPosition(const Vector3& position)
 }
 
 //-----------------------------------------------------------------------------
-//!	ローカル回転
-//!	@param	[in]	rotate		回転
+//  @brief  ローカル回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetLocalRotate(const Quaternion& rotate)
 {
@@ -286,8 +286,8 @@ void GameObjectBase::SetLocalRotate(const Quaternion& rotate)
 }
 
 //-----------------------------------------------------------------------------
-//!	ローカルサイズ
-//!	@param	[in]	scale		サイズ
+//  @brief  ローカルサイズ
+//  @param	[in]	scale		サイズ
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetLocalScale(const Vector3& scale)
 {
@@ -296,8 +296,8 @@ void GameObjectBase::SetLocalScale(const Vector3& scale)
 }
 
 //-----------------------------------------------------------------------------
-//!	ローカル座標
-//!	@param	[in]	position	座標
+//  @brief  ローカル座標
+//  @param	[in]	position	座標
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddLocalPosition(const Vector3& position)
 {
@@ -306,8 +306,8 @@ void GameObjectBase::AddLocalPosition(const Vector3& position)
 }
 
 //-----------------------------------------------------------------------------
-//!	ローカル回転
-//!	@param	[in]	rotate		回転
+//  @brief  ローカル回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddLocalRotate(const Quaternion& rotate)
 {
@@ -316,8 +316,8 @@ void GameObjectBase::AddLocalRotate(const Quaternion& rotate)
 }
 
 //-----------------------------------------------------------------------------
-//!	ローカルサイズ
-//!	@param	[in]	scale		サイズ
+//  @brief  ローカルサイズ
+//  @param	[in]	scale		サイズ
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddLocalScale(const Vector3& scale)
 {
@@ -326,8 +326,8 @@ void GameObjectBase::AddLocalScale(const Vector3& scale)
 }
 
 //-----------------------------------------------------------------------------
-//!	親ローカル座標
-//!	@param	[in]	position	座標
+//  @brief  親ローカル座標
+//  @param	[in]	position	座標
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetRelativePosition(const Vector3& position)
 {
@@ -336,8 +336,8 @@ void GameObjectBase::SetRelativePosition(const Vector3& position)
 }
 
 //-----------------------------------------------------------------------------
-//!	親ローカル回転
-//!	@param	[in]	rotate		回転
+//  @brief  親ローカル回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::SetRelativeRotate(const Quaternion& rotate)
 {
@@ -346,8 +346,8 @@ void GameObjectBase::SetRelativeRotate(const Quaternion& rotate)
 }
 
 //-----------------------------------------------------------------------------
-//!	親ローカル座標
-//!	@param	[in]	position	座標
+//  @brief  親ローカル座標
+//  @param	[in]	position	座標
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddRelativePosition(const Vector3& position)
 {
@@ -356,8 +356,8 @@ void GameObjectBase::AddRelativePosition(const Vector3& position)
 }
 
 //-----------------------------------------------------------------------------
-//!	親ローカル回転
-//!	@param	[in]	rotate		回転
+//  @brief  親ローカル回転
+//  @param	[in]	rotate		回転
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddRelativeRotate(const Quaternion& rotate)
 {
@@ -367,9 +367,9 @@ void GameObjectBase::AddRelativeRotate(const Quaternion& rotate)
 
 
 //-----------------------------------------------------------------------------
-//!	ワールド行列作成
-//!	@param	[in]	myMatrix	掛け足す行列
-//!	@param	[in]	pParent		親オブジェクトのポインタ default:nullptr
+//  @brief  ワールド行列作成
+//  @param	[in]	myMatrix	掛け足す行列
+//  @param	[in]	pParent		親オブジェクトのポインタ default:nullptr
 //-----------------------------------------------------------------------------
 Matrix GameObjectBase::CreateWorldMatrix(const Matrix& myMatrix, GameObjectBase* pParent) const
 {
@@ -389,7 +389,119 @@ Matrix GameObjectBase::CreateWorldMatrix(const Matrix& myMatrix, GameObjectBase*
 }
 
 //-----------------------------------------------------------------------------
-//!	行列のバインド
+//  @brief  ローカル行列
+//  @return 行列
+//-----------------------------------------------------------------------------
+Matrix GameObjectBase::GetLocalMatrix() const
+{
+	return _localMatrix;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ローカル座標
+//  @return 座標
+//-----------------------------------------------------------------------------
+Vector3 GameObjectBase::GetLocalPosition() const
+{
+	return _localPosition;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ローカル回転
+//  @return 回転
+//-----------------------------------------------------------------------------
+Quaternion GameObjectBase::GetLocalRotate() const
+{
+	return _localRotate;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ローカルサイズ
+//  @return サイズ
+//-----------------------------------------------------------------------------
+Vector3 GameObjectBase::GetLocalScale() const
+{
+	return _localScale;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ワールド行列
+//  @return	行列
+//-----------------------------------------------------------------------------
+Matrix GameObjectBase::GetWorldMatrix() const
+{
+	return _worldMatrix;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  親のワールド行列
+//  @return	行列
+//-----------------------------------------------------------------------------
+Matrix GameObjectBase::GetWorldParentMatrix() const
+{
+	if (_pParentObject)
+	{
+		return _pParentObject->_worldMatrix;
+	}
+	return Matrix::IDENTITY;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ワールド座標
+//  @return	座標
+//-----------------------------------------------------------------------------
+Vector3 GameObjectBase::GetWorldPosition() const
+{
+	return GetWorldMatrix().GetPosition();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ワールド回転
+//  @return	回転
+//-----------------------------------------------------------------------------
+Quaternion GameObjectBase::GetWorldRotate() const
+{
+	return GetWorldMatrix().GetRotateQuaternion();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  ワールドサイズ
+//  @return	サイズ
+//-----------------------------------------------------------------------------
+Vector3 GameObjectBase::GetWorldScale() const
+{
+	return GetWorldMatrix().GetScale();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  オブジェクトワールドXベクトル
+//  @return	オブジェクトワールドXベクトル
+//-----------------------------------------------------------------------------
+Vector3 GameObjectBase::GetWorldXVector() const
+{
+	return GetWorldMatrix().GetXVector();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  オブジェクトワールドYベクトル
+//  @return	オブジェクトワールドYベクトル
+//-----------------------------------------------------------------------------
+Vector3 GameObjectBase::GetWorldYVector() const
+{
+	return GetWorldMatrix().GetYVector();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  オブジェクトワールドZベクトル
+//  @return	オブジェクトワールドZベクトル
+//-----------------------------------------------------------------------------
+Vector3 GameObjectBase::GetWorldZVector() const
+{
+	return GetWorldMatrix().GetZVector();
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  行列のバインド
 //-----------------------------------------------------------------------------
 void GameObjectBase::BindWorldMatrix()
 {
@@ -397,8 +509,8 @@ void GameObjectBase::BindWorldMatrix()
 }
 
 //-----------------------------------------------------------------------------
-//!	Processオブジェクト追加
-//!	@param	[in]	pProcess	Processオブジェクトのポインタ
+//  @brief  Processオブジェクト追加
+//  @param	[in]	pProcess	Processオブジェクトのポインタ
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddProcess(ProcessBase* pProcess)
 {
@@ -411,8 +523,8 @@ void GameObjectBase::AddProcess(ProcessBase* pProcess)
 }
 
 //-----------------------------------------------------------------------------
-//!	Meshオブジェクト追加
-//!	@param	[in]	pProcess	Meshオブジェクトのポインタ
+//  @brief  Meshオブジェクト追加
+//  @param	[in]	pProcess	Meshオブジェクトのポインタ
 //-----------------------------------------------------------------------------
 void GameObjectBase::AddMesh(MeshBase* pMesh)
 {
@@ -425,9 +537,9 @@ void GameObjectBase::AddMesh(MeshBase* pMesh)
 }
 
 //-----------------------------------------------------------------------------
-//!	Processオブジェクトのタグ検索
-//!	@param	[in]	tag	タグ
-//!	@return	検索結果
+//  @brief  Processオブジェクトのタグ検索
+//  @param	[in]	tag	タグ
+//  @return	検索結果
 //-----------------------------------------------------------------------------
 std::vector<ProcessBase*> GameObjectBase::GetProcesss(const std::string& tag)
 {
@@ -443,9 +555,9 @@ std::vector<ProcessBase*> GameObjectBase::GetProcesss(const std::string& tag)
 }
 
 //-----------------------------------------------------------------------------
-//!	Processオブジェクトのタグ検索
-//!	@param	[in]	tags	タグ
-//!	@return	検索結果
+//  @brief  Processオブジェクトのタグ検索
+//  @param	[in]	tags	タグ
+//  @return	検索結果
 //-----------------------------------------------------------------------------
 std::vector<ProcessBase*> GameObjectBase::GetProcesss(const std::vector<std::string>& tags)
 {
@@ -461,9 +573,9 @@ std::vector<ProcessBase*> GameObjectBase::GetProcesss(const std::vector<std::str
 }
 
 //-----------------------------------------------------------------------------
-//!	Meshオブジェクトのタグ検索
-//!	@param	[in]	tag	タグ
-//!	@return	検索結果
+//  @brief  Meshオブジェクトのタグ検索
+//  @param	[in]	tag	タグ
+//  @return	検索結果
 //-----------------------------------------------------------------------------
 std::vector<MeshBase*> GameObjectBase::GetMeshs(const std::string& tag)
 {
@@ -479,9 +591,9 @@ std::vector<MeshBase*> GameObjectBase::GetMeshs(const std::string& tag)
 }
 
 //-----------------------------------------------------------------------------
-//!	Meshオブジェクトのタグ検索
-//!	@param	[in]	tags	タグ
-//!	@return	検索結果
+//  @brief  Meshオブジェクトのタグ検索
+//  @param	[in]	tags	タグ
+//  @return	検索結果
 //-----------------------------------------------------------------------------
 std::vector<MeshBase*> GameObjectBase::GetMeshs(const std::vector<std::string>& tags)
 {
@@ -497,7 +609,46 @@ std::vector<MeshBase*> GameObjectBase::GetMeshs(const std::vector<std::string>& 
 }
 
 //-----------------------------------------------------------------------------
-//!	プロセス更新
+//  @brief  有効化フラグ設定
+//  @param	[in]	enable	有効化
+//-----------------------------------------------------------------------------
+void GameObjectBase::Enable(bool enable)
+{
+	_enable = enable;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  有効化フラグ取得
+//  @retval	true	有効
+//  @retval	false	無効
+//-----------------------------------------------------------------------------
+bool GameObjectBase::IsEnable() const
+{
+	return _enable;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  行列の更新
+//-----------------------------------------------------------------------------
+void GameObjectBase::MatrixUpdate()
+{
+	_localMatrix = Matrix::Affine(_localPosition, _localRotate, _localScale);
+	if (_pParentObject)
+	{
+		_worldMatrix = _localMatrix * _pParentObject->_worldMatrix;
+	}
+	else
+	{
+		_worldMatrix = _localMatrix;
+	}
+	for (auto* pChild : _pChildrenObjects)
+	{
+		pChild->MatrixUpdate();
+	}
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  プロセス更新
 //-----------------------------------------------------------------------------
 void GameObjectBase::ProcessUpdate()
 {
@@ -509,7 +660,7 @@ void GameObjectBase::ProcessUpdate()
 }
 
 //-----------------------------------------------------------------------------
-//!	メッシュ描画
+//  @brief  メッシュ描画
 //-----------------------------------------------------------------------------
 void GameObjectBase::MeshRender()
 {
@@ -521,8 +672,8 @@ void GameObjectBase::MeshRender()
 
 
 //-----------------------------------------------------------------------------
-//!	プロセス解放
-//!	@param	[in]	pProcess	プロセスのポインタ
+//  @brief  プロセス解放
+//  @param	[in]	pProcess	プロセスのポインタ
 //-----------------------------------------------------------------------------
 void GameObjectBase::ReleaseProcess(ProcessBase* pProcess)
 {
@@ -542,8 +693,8 @@ void GameObjectBase::ReleaseProcess(ProcessBase* pProcess)
 }
 
 //-----------------------------------------------------------------------------
-//!	メッシュ解放
-//!	@param	[in]	pMesh		メッシュのポインタ
+//  @brief  メッシュ解放
+//  @param	[in]	pMesh		メッシュのポインタ
 //-----------------------------------------------------------------------------
 void GameObjectBase::ReleaseMesh(MeshBase* pMesh)
 {
@@ -556,6 +707,57 @@ void GameObjectBase::ReleaseMesh(MeshBase* pMesh)
 		{
 			SafeRelease(p);
 			_pMeshs.erase(itr);
+		}
+		++itr;
+	}
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  子オブジェクトの更新
+//-----------------------------------------------------------------------------
+void GameObjectBase::ChildrenUpdate()
+{
+	for (auto& pObject : _pChildrenObjects)
+	{
+		if (pObject && pObject->IsEnable())
+		{
+			pObject->Update();
+			if (!pObject)continue;	//	消えてたら次のオブジェクトへ
+			pObject->ProcessUpdate();
+			if (!pObject)continue;	//	消えてたら次のオブジェクトへ
+			pObject->ChildrenUpdate();
+		}
+	}
+
+	//	消えたオブジェクトをリストから消す
+	auto itr = _pChildrenObjects.begin();
+	while (itr != _pChildrenObjects.end())
+	{
+		if (!(*itr))
+		{
+			itr = _pChildrenObjects.erase(itr);
+			continue;
+		}
+		++itr;
+	}
+
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  子オブジェクトの描画
+//-----------------------------------------------------------------------------
+void GameObjectBase::ChildrenRender()
+{
+	auto itr = _pChildrenObjects.begin();
+	while (itr != _pChildrenObjects.end())
+	{
+		GameObjectBase* p = (*itr);
+		if (p && p->IsEnable())
+		{
+			p->BindWorldMatrix();
+			p->Render();
+			p->MeshRender();
+			p->ChildrenRender();
 		}
 		++itr;
 	}
