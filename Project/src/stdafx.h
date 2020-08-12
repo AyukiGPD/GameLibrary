@@ -200,7 +200,7 @@
 #include "GpuUsage.h"
 
 #include "MeshData.h"
-#include "BaseMesh.h"
+#include "MeshBase.h"
 #include "ProcessBase.h"
 #include "BaseObject.h"
 #include "Collision.h"

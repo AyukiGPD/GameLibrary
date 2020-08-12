@@ -335,7 +335,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\BaseMesh.h" />
+    <ClInclude Include="src\MeshBase.h" />
     <ClInclude Include="src\BaseObject.h" />
     <ClInclude Include="src\BufferObject.h" />
     <ClInclude Include="src\Camera.h" />
@@ -386,7 +386,7 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClInclude Include="src\XInputPad.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseMesh.cpp" />
+    <ClCompile Include="src\MeshBase.cpp" />
     <ClCompile Include="src\BaseObject.cpp" />
     <ClCompile Include="src\BufferObject.cpp" />
     <ClCompile Include="src\Camera.cpp" />

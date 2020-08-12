@@ -150,9 +150,6 @@
     <ClInclude Include="src\Shader.h">
       <Filter>src\System\Render</Filter>
     </ClInclude>
-    <ClInclude Include="src\BaseMesh.h">
-      <Filter>src\System\Object</Filter>
-    </ClInclude>
     <ClInclude Include="src\Collision.h">
       <Filter>src\System\Object</Filter>
     </ClInclude>
@@ -184,6 +181,9 @@
       <Filter>src\System\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\MeshData.h">
+      <Filter>src\System\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MeshBase.h">
       <Filter>src\System\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -293,9 +293,6 @@
     <ClCompile Include="src\Shader.cpp">
       <Filter>src\System\Render</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseMesh.cpp">
-      <Filter>src\System\Object</Filter>
-    </ClCompile>
     <ClCompile Include="src\Collision.cpp">
       <Filter>src\System\Object</Filter>
     </ClCompile>
@@ -333,6 +330,9 @@
       <Filter>src\System\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\MeshData.cpp">
+      <Filter>src\System\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshBase.cpp">
       <Filter>src\System\Object</Filter>
     </ClCompile>
   </ItemGroup>
