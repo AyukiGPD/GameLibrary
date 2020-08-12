@@ -15,7 +15,7 @@ static const f32 STICK_THRES_HOLD_FLOAT = 1.0f / STICK_THRES_HOLD; //!< スティッ
 static const f32 TRIGGER_THRES_HOLD_FLOAT = 1.0f / TRIGGER_THRES_HOLD; //!< トリガーしきい値
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 XInputPadManager::XInputPadManager()
 : _buttons			(0)
@@ -29,7 +29,7 @@ XInputPadManager::XInputPadManager()
 }
 
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 XInputPadManager::~XInputPadManager()
 {
@@ -37,11 +37,11 @@ XInputPadManager::~XInputPadManager()
 }
 
 //-----------------------------------------------------------------------------
-//!	初期化
-//!	@param	[in]	vibration	バイブレーション有効/無効
-//!	@param	[in]	retry		コントローラーが刺さってない場合のポップアップ表示
-//! @retval true    初期化成功
-//! @retval false   初期化失敗
+//  @brief  初期化
+//  @param	[in]	vibration	バイブレーション有効/無効
+//  @param	[in]	retry		コントローラーが刺さってない場合のポップアップ表示
+//  @retval true    初期化成功
+//  @retval false   初期化失敗
 //-----------------------------------------------------------------------------
 bool XInputPadManager::Init(bool vibration, bool retry)
 {
@@ -92,7 +92,7 @@ bool XInputPadManager::Init(bool vibration, bool retry)
 }
 
 //-----------------------------------------------------------------------------
-//!	更新
+//  @brief  更新
 //-----------------------------------------------------------------------------
 void XInputPadManager::Update()
 {
@@ -154,10 +154,10 @@ void XInputPadManager::Update()
 }
 
 //-----------------------------------------------------------------------------
-//!	バイブレーションON
-//!	@param	[in]	time	作動時間
-//!	@param	[in]	left	左モーター
-//!	@param	[in]	right	右モーター
+//  @brief  バイブレーションON
+//  @param	[in]	time	作動時間
+//  @param	[in]	left	左モーター
+//  @param	[in]	right	右モーター
 //-----------------------------------------------------------------------------
 void XInputPadManager::VibrateOnTime(f32 time, f32 left, f32 right)
 {
@@ -166,9 +166,9 @@ void XInputPadManager::VibrateOnTime(f32 time, f32 left, f32 right)
 }
 
 //-----------------------------------------------------------------------------
-//!	バイブレーションON
-//!	@param	[in]	left	左モーター
-//!	@param	[in]	right	右モーター
+//  @brief  バイブレーションON
+//  @param	[in]	left	左モーター
+//  @param	[in]	right	右モーター
 //-----------------------------------------------------------------------------
 void XInputPadManager::VibrateOn(f32 left, f32 right)
 {
@@ -186,7 +186,7 @@ void XInputPadManager::VibrateOn(f32 left, f32 right)
 }
 
 //-----------------------------------------------------------------------------
-//!	バイブレーションOFF
+//  @brief  バイブレーションOFF
 //-----------------------------------------------------------------------------
 void XInputPadManager::VibrateOff()
 {
@@ -200,9 +200,9 @@ void XInputPadManager::VibrateOff()
 }
 
 //-----------------------------------------------------------------------------
-//!	キースケール取得
-//!	@param	[in]	pad	キーコード
-//!	@return	キースケール
+//  @brief  キースケール取得
+//  @param	[in]	pad	キーコード
+//  @return	キースケール
 //-----------------------------------------------------------------------------
 f32 XInputPadManager::GetScale( XINPUTPAD pad ) const
 {
@@ -249,9 +249,9 @@ f32 XInputPadManager::GetScale( XINPUTPAD pad ) const
 }
 
 //-----------------------------------------------------------------------------
-//!	左スティック取得
-//!	@param	[in]	minVal	最低サイズ
-//!	@return	スティックの値
+//  @brief  左スティック取得
+//  @param	[in]	minVal	最低サイズ
+//  @return	スティックの値
 //-----------------------------------------------------------------------------
 Vector2 XInputPadManager::GetStickL( f32 minVal ) const
 {
@@ -265,9 +265,9 @@ Vector2 XInputPadManager::GetStickL( f32 minVal ) const
 }
 
 //-----------------------------------------------------------------------------
-//!	右スティック取得
-//!	@param	[in]	minVal	最低サイズ
-//!	@return	スティックの値
+//  @brief  右スティック取得
+//  @param	[in]	minVal	最低サイズ
+//  @return	スティックの値
 //-----------------------------------------------------------------------------
 Vector2 XInputPadManager::GetStickR( f32 minVal ) const
 {
@@ -279,10 +279,9 @@ Vector2 XInputPadManager::GetStickR( f32 minVal ) const
 	return result;
 }
 
-
 //-----------------------------------------------------------------------------
-//!	接続状態の取得
-//!	@return	パッド状態
+//  @brief  接続状態の取得
+//  @return	パッド状態
 //-----------------------------------------------------------------------------
 DWORD XInputPadManager::UpdateControllerState()
 {
@@ -298,6 +297,5 @@ DWORD XInputPadManager::UpdateControllerState()
 	}
 	return dwResult;
 }
-
 
 

@@ -8,9 +8,13 @@
 //=============================================================================
 #pragma once
 
+// include
 #include <XInput.h>
 #pragma comment(lib,"XInput9_1_0.lib")
 
+//-----------------------------------------------------------------------------
+//! @brief  キーリスト
+//-----------------------------------------------------------------------------
 enum class XINPUTPAD : u64
 {
 	//デジタル方向キー
@@ -43,92 +47,96 @@ enum class XINPUTPAD : u64
 	RSTICK_RIGHT	=	( static_cast<u64>(1) <<  21 ),		//!< 右
 	RSTICK_UP		=	( static_cast<u64>(1) <<  22 ),		//!< 上
 	RSTICK_DOWN		=	( static_cast<u64>(1) <<  23 ),		//!< 下
-
 };
 
+//-----------------------------------------------------------------------------
+//! @brief  ゲームパッド
+//-----------------------------------------------------------------------------
 class XInputPadManager : public ManagerBase
 {
 public:
-
-public:
-	//!	コンストラクタ
+	//! @brief  コンストラクタ
 	XInputPadManager();
-	//!	デストラクタ
+
+	//! @brief  デストラクタ
 	virtual ~XInputPadManager();
 
-	//!	初期化
-	//!	@param	[in]	vibration	バイブレーション有効/無効
-	//!	@param	[in]	retry		コントローラーが刺さってない場合のポップアップ表示
+	//! @brief  初期化
+	//! @param  [in]    vibration   バイブレーション有効/無効
+	//! @param  [in]    retry       コントローラーが刺さってない場合のポップアップ表示
 	//! @retval true    初期化成功
 	//! @retval false   初期化失敗
 	bool Init(bool vibration = true,bool retry = true);
-	//!	更新
+
+	//! @brief  更新
 	void Update();
 
-	//!	バイブレーションON
-	//!	@param	[in]	time	作動時間
-	//!	@param	[in]	left	左モーター
-	//!	@param	[in]	right	右モーター
+	//! @brief  バイブレーションON
+	//! @param  [in]    time    作動時間
+	//! @param  [in]    left    左モーター
+	//! @param  [in]    right   右モーター
 	void VibrateOnTime(f32 time,f32 left = 1.f, f32 right = 1.f);
-	//!	バイブレーションON
-	//!	@param	[in]	left	左モーター
-	//!	@param	[in]	right	右モーター
+
+	//! @brief  バイブレーションON
+	//! @param  [in]    left    左モーター
+	//! @param  [in]    right   右モーター
 	void VibrateOn(f32 left = 1.f, f32 right = 1.f);
-	//!	バイブレーションOFF
+
+	//! @brief  バイブレーションOFF
 	void VibrateOff();
 
-
-	//!	ステート取得
-	//!	@return	コントローラーステート
+	//! @brief  ステート取得
+	//! @return コントローラーステート
 	XINPUT_STATE GetState()const{ return _state; }
 
-	//!	生キー
-	//!	@param	[in]	pad	キーコード
+	//! @brief  生キー
+	//! @param  [in]    pad キーコード
 	bool GetButtons(XINPUTPAD pad) const
 	{
 		return (_buttons & (u32)pad) != 0;
 	}
-	//!	トリガー
-	//!	@param	[in]	pad	キーコード
+
+	//! @brief  トリガー
+	//! @param  [in]    pad キーコード
 	bool GetTriggers(XINPUTPAD pad) const
 	{
 		return (_triggers & (u32)pad) != 0;
 	}
-	//!	リリース
-	//!	@param	[in]	pad	キーコード
+
+	//! @brief  リリース
+	//! @param  [in]    pad キーコード
 	bool GetReleases(XINPUTPAD pad) const
 	{
 		return (_releases & (u32)pad) != 0;
 	}
 
-	//!	キースケール取得
-	//!	@param	[in]	pad	キーコード
-	//!	@return	キースケール
+	//! @brief  キースケール取得
+	//! @param  [in]    pad キーコード
+	//! @return キースケール
 	f32 GetScale( XINPUTPAD pad ) const;
 
-	//!	左スティック取得
-	//!	@param	[in]	minVal	最低サイズ
-	//!	@return	スティックの値
+	//! @brief  左スティック取得
+	//! @param  [in]    minVal  最低サイズ
+	//! @return スティックの値
 	Vector2 GetStickL( f32 minVal = 0.2f ) const;
-	//!	右スティック取得
-	//!	@param	[in]	minVal	最低サイズ
-	//!	@return	スティックの値
+
+	//! @brief  右スティック取得
+	//! @param  [in]    minVal  最低サイズ
+	//! @return スティックの値
 	Vector2 GetStickR( f32 minVal = 0.2f ) const;
 
-
-	//!	コントローラーの有無
+	//! @brief  コントローラーの有無
 	bool IsController() const { return _isController; }
-	//!	バイブレーションON/OFF
+
+	//! @brief  バイブレーションON/OFF
 	bool IsVibrate()const{ return _isVibration; }
 
-
 private:
-	//!	接続状態の取得
-	//!	@return	パッド状態
+	//! @brief  接続状態の取得
+	//! @return パッド状態
 	DWORD UpdateControllerState();
 
 private:
-
 	XINPUT_STATE	_state;			//!< コントローラーステート
 	bool			_isController;	//!< コントローラー接続
 
@@ -143,5 +151,6 @@ private:
 	f32				_vibrateTime;
 };
 
+// マネージャ取得関数生成
 MANAGER_INTERFACE(XInputPadManager, XInput);
 
