@@ -25,9 +25,6 @@
     <Filter Include="src\System\Input">
       <UniqueIdentifier>{d23fbb4a-97db-407a-92bd-28c2388977b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\System\Type">
-      <UniqueIdentifier>{1b3ee4a7-1fbc-47c6-b927-96e23dccf591}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\System\Object">
       <UniqueIdentifier>{76d43b68-f72d-494e-8c44-69f095655cf1}</UniqueIdentifier>
     </Filter>
@@ -40,22 +37,58 @@
     <Filter Include="src\System\Collision">
       <UniqueIdentifier>{8ea16497-b959-4fd7-bbd5-8091b3b1f891}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\System\Core">
+      <UniqueIdentifier>{3893f35e-2d32-4f8f-ae8d-f70452888f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Core\Type">
+      <UniqueIdentifier>{1b3ee4a7-1fbc-47c6-b927-96e23dccf591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Render\BufferObject">
+      <UniqueIdentifier>{11928137-5ef1-4b81-bb9b-ddaf9ee6838e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Render\DeferredRenderer">
+      <UniqueIdentifier>{0e01938c-3bd0-42a6-ac8c-797603d3ae80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Render\Filter">
+      <UniqueIdentifier>{422d93b8-3242-4749-963f-af949baeba59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Resource\Font">
+      <UniqueIdentifier>{51b83a6f-a44e-481a-899e-5c0ba5889682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Resource\Model">
+      <UniqueIdentifier>{d1be70dd-3815-4d7d-b051-08e11570f3de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Resource\Sound">
+      <UniqueIdentifier>{1743529c-5796-47d4-9378-e5b5c613d1f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Resource\Texture">
+      <UniqueIdentifier>{66926638-d299-437e-8f1e-8dbc0e35a432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Render\Light">
+      <UniqueIdentifier>{0d6fbfe4-8ec7-4dce-9af7-ee6bc4f2d742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Render\Camera">
+      <UniqueIdentifier>{65eba803-7b5b-47a7-b45c-5e110182b75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Render\Particle">
+      <UniqueIdentifier>{c74cadb8-2943-4a75-b446-5915042afa29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Render\Shader">
+      <UniqueIdentifier>{963b5d9d-4898-49b3-9332-95535d9cd1a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Object\Process">
+      <UniqueIdentifier>{6810d97c-78bb-4b87-b8c0-1d462a95161f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Object\Mesh">
+      <UniqueIdentifier>{ddd6206b-b865-4371-9446-b54eaa0139f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System\Object\Mesh\StaticMesh">
+      <UniqueIdentifier>{b09765ce-572d-4ec8-a674-1bbc20743166}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h">
       <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Font.h">
-      <Filter>src\System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Model.h">
-      <Filter>src\System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sound.h">
-      <Filter>src\System\Resource</Filter>
     </ClInclude>
     <ClInclude Include="src\drawObj.h">
       <Filter>src\System\Render</Filter>
@@ -67,19 +100,16 @@
       <Filter>src\System\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Color.h">
-      <Filter>src\System\Type</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClInclude>
     <ClInclude Include="src\Vector.h">
-      <Filter>src\System\Type</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClInclude>
     <ClInclude Include="src\Matrix.h">
-      <Filter>src\System\Type</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClInclude>
     <ClInclude Include="src\typeDef.h">
-      <Filter>src\System\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Camera.h">
-      <Filter>src\System\Render</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClInclude>
     <ClInclude Include="src\FrameRate.h">
       <Filter>src\System\Tool</Filter>
@@ -93,77 +123,14 @@
     <ClInclude Include="src\XInputPad.h">
       <Filter>src\System\Input</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SystemMain.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Singleton.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Light.h">
-      <Filter>src\System\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SystemResource.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
     <ClInclude Include="src\CpuUsage.h">
       <Filter>src\System\Tool</Filter>
     </ClInclude>
     <ClInclude Include="src\DataLoader.h">
       <Filter>src\System\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
     <ClInclude Include="src\GpuUsage.h">
       <Filter>src\System\Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Texture.h">
-      <Filter>src\System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DeferredRenderer.h">
-      <Filter>src\System\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\FrameBuffer.h">
-      <Filter>src\System\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BufferObject.h">
-      <Filter>src\System\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Filter.h">
-      <Filter>src\System\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ManagerBase.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Macro.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Particle.h">
-      <Filter>src\System\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RefCounter.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Shader.h">
-      <Filter>src\System\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Main.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SystemWork.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tag.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Timer.h">
-      <Filter>src\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DebugManager.h">
-      <Filter>src\System\Render</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderManager.h">
       <Filter>src\System\Render</Filter>
@@ -173,18 +140,6 @@
     </ClInclude>
     <ClInclude Include="src\MyInclude.h">
       <Filter>src\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ProcessBase.h">
-      <Filter>src\System\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MeshData.h">
-      <Filter>src\System\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MeshBase.h">
-      <Filter>src\System\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PointObject.h">
-      <Filter>src\System\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObjectBase.h">
       <Filter>src\System\Object</Filter>
@@ -198,37 +153,115 @@
     <ClInclude Include="src\CollisionObject.h">
       <Filter>src\System\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vbo.h">
-      <Filter>src\System\Render</Filter>
+    <ClInclude Include="src\DebugManager.h">
+      <Filter>src\System\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RefCounter.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Singleton.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Macro.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ManagerBase.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Main.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SystemWork.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SystemMain.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tag.h">
+      <Filter>src\System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Timer.h">
+      <Filter>src\System\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BufferObject.h">
+      <Filter>src\System\Render\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="src\Ibo.h">
-      <Filter>src\System\Render</Filter>
+      <Filter>src\System\Render\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="src\Vao.h">
-      <Filter>src\System\Render</Filter>
+      <Filter>src\System\Render\BufferObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vbo.h">
+      <Filter>src\System\Render\BufferObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shader.h">
+      <Filter>src\System\Render\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Particle.h">
+      <Filter>src\System\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>src\System\Render\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DeferredRenderer.h">
+      <Filter>src\System\Render\DeferredRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Filter.h">
+      <Filter>src\System\Render\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FrameBuffer.h">
+      <Filter>src\System\Render\DeferredRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Light.h">
+      <Filter>src\System\Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SystemResource.h">
+      <Filter>src\System\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Font.h">
+      <Filter>src\System\Resource\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model.h">
+      <Filter>src\System\Resource\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound.h">
+      <Filter>src\System\Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>src\System\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MeshBase.h">
+      <Filter>src\System\Object\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MeshData.h">
+      <Filter>src\System\Object\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProcessBase.h">
+      <Filter>src\System\Object\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PointObject.h">
+      <Filter>src\System\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\VaoObject.h">
-      <Filter>src\System\Object</Filter>
+      <Filter>src\System\Render\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="src\BoxMesh.h">
-      <Filter>src\System\Object</Filter>
+      <Filter>src\System\Object\Mesh\StaticMesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\stdafx.cpp">
       <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\System.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Font.cpp">
-      <Filter>src\System\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Model.cpp">
-      <Filter>src\System\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sound.cpp">
-      <Filter>src\System\Resource</Filter>
     </ClCompile>
     <ClCompile Include="src\drawObj.cpp">
       <Filter>src\System\Render</Filter>
@@ -240,16 +273,13 @@
       <Filter>src\System\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Color.cpp">
-      <Filter>src\System\Type</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClCompile>
     <ClCompile Include="src\Vector.cpp">
-      <Filter>src\System\Type</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClCompile>
     <ClCompile Include="src\Matrix.cpp">
-      <Filter>src\System\Type</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>src\System\Render</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClCompile>
     <ClCompile Include="src\FrameRate.cpp">
       <Filter>src\System\Tool</Filter>
@@ -263,101 +293,26 @@
     <ClCompile Include="src\XInputPad.cpp">
       <Filter>src\System\Input</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenGL.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SystemMain.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Light.cpp">
-      <Filter>src\System\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SystemResource.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
     <ClCompile Include="src\CpuUsage.cpp">
       <Filter>src\System\Tool</Filter>
     </ClCompile>
     <ClCompile Include="src\DataLoader.cpp">
       <Filter>src\System\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
     <ClCompile Include="src\GpuUsage.cpp">
       <Filter>src\System\Tool</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
-      <Filter>src\System\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DeferredRenderer.cpp">
-      <Filter>src\System\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FrameBuffer.cpp">
-      <Filter>src\System\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BufferObject.cpp">
-      <Filter>src\System\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Filter.cpp">
-      <Filter>src\System\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ManagerBase.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Macro.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Particle.cpp">
-      <Filter>src\System\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RefCounter.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Shader.cpp">
-      <Filter>src\System\Render</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneGame.cpp">
       <Filter>src\Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SystemWork.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tag.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Timer.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Singleton.cpp">
-      <Filter>src\System</Filter>
-    </ClCompile>
     <ClCompile Include="src\typeDef.cpp">
-      <Filter>src\System\Type</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DebugManager.cpp">
-      <Filter>src\System\Render</Filter>
+      <Filter>src\System\Core\Type</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderManager.cpp">
       <Filter>src\System\Render</Filter>
     </ClCompile>
     <ClCompile Include="src\MyInclude.cpp">
       <Filter>src\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ProcessBase.cpp">
-      <Filter>src\System\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MeshData.cpp">
-      <Filter>src\System\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MeshBase.cpp">
-      <Filter>src\System\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PointObject.cpp">
-      <Filter>src\System\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObjectBase.cpp">
       <Filter>src\System\Object</Filter>
@@ -371,20 +326,110 @@
     <ClCompile Include="src\CollisionObject.cpp">
       <Filter>src\System\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vbo.cpp">
-      <Filter>src\System\Render</Filter>
+    <ClCompile Include="src\DebugManager.cpp">
+      <Filter>src\System\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RefCounter.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Singleton.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Macro.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ManagerBase.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SystemMain.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SystemWork.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tag.cpp">
+      <Filter>src\System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer.cpp">
+      <Filter>src\System\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BufferObject.cpp">
+      <Filter>src\System\Render\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="src\Ibo.cpp">
-      <Filter>src\System\Render</Filter>
+      <Filter>src\System\Render\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="src\Vao.cpp">
-      <Filter>src\System\Render</Filter>
+      <Filter>src\System\Render\BufferObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vbo.cpp">
+      <Filter>src\System\Render\BufferObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>src\System\Render\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particle.cpp">
+      <Filter>src\System\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>src\System\Render\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeferredRenderer.cpp">
+      <Filter>src\System\Render\DeferredRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Filter.cpp">
+      <Filter>src\System\Render\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FrameBuffer.cpp">
+      <Filter>src\System\Render\DeferredRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Light.cpp">
+      <Filter>src\System\Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SystemResource.cpp">
+      <Filter>src\System\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Font.cpp">
+      <Filter>src\System\Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model.cpp">
+      <Filter>src\System\Resource\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound.cpp">
+      <Filter>src\System\Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>src\System\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshBase.cpp">
+      <Filter>src\System\Object\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshData.cpp">
+      <Filter>src\System\Object\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessBase.cpp">
+      <Filter>src\System\Object\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PointObject.cpp">
+      <Filter>src\System\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\VaoObject.cpp">
-      <Filter>src\System\Object</Filter>
+      <Filter>src\System\Render\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="src\BoxMesh.cpp">
-      <Filter>src\System\Object</Filter>
+      <Filter>src\System\Object\Mesh\StaticMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
