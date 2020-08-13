@@ -11,7 +11,7 @@
 using namespace BufferObject;
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 Vbo::Desc::Desc()
 : _vertexStride	(0)
@@ -21,11 +21,11 @@ Vbo::Desc::Desc()
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
-//!	@param	[in]	stride	データ一つ分のサイズ
-//!	@param	[in]	count	配列サイズ
-//!	@param	[in]	pData	データポインタ
-//!	@param	[in]	list	バッファ情報リスト
+//  @brief  コンストラクタ
+//  @param	[in]	stride	データ一つ分のサイズ
+//  @param	[in]	count	配列サイズ
+//  @param	[in]	pData	データポインタ
+//  @param	[in]	list	バッファ情報リスト
 //-----------------------------------------------------------------------------
 Vbo::Desc::Desc( u32 vertexStride,
 				 u32 vertexCount,
@@ -39,7 +39,7 @@ Vbo::Desc::Desc( u32 vertexStride,
 }
 
 //-----------------------------------------------------------------------------
-//!	頂点設定
+//  @brief  頂点設定
 //	@param	[in]	stride	データ一つ分のサイズ
 //	@param	[in]	count	配列サイズ
 //	@param	[in]	pData	データポインタ
@@ -51,9 +51,9 @@ void Vbo::Desc::SetVertexData(u32 stride, u32 count, const void* pData)
 	_pVertexData = pData;
 }
 //-----------------------------------------------------------------------------
-//!	バッファ情報追加
-//!	@param	[in]	pList			リストデータ
-//!	@param	[in]	elementCount	配列サイズ
+//  @brief  バッファ情報追加
+//  @param	[in]	pList			リストデータ
+//  @param	[in]	elementCount	配列サイズ
 //-----------------------------------------------------------------------------
 void Vbo::Desc::SetElementList(const Element* pList, u32 elementCount)
 {
@@ -67,8 +67,8 @@ void Vbo::Desc::SetElementList(const Element* pList, u32 elementCount)
 	}
 }
 //-----------------------------------------------------------------------------
-//!	バッファ情報追加
-//!	@param	[in]	list	バッファ情報リスト
+//  @brief  バッファ情報追加
+//  @param	[in]	list	バッファ情報リスト
 //-----------------------------------------------------------------------------
 void Vbo::Desc::SetElementList(const std::vector<Element>& list)
 {
@@ -83,9 +83,26 @@ void Vbo::Desc::SetElementList(const std::vector<Element>& list)
 	}
 }
 
+//-----------------------------------------------------------------------------
+//! @brief  Vboバッファデータ
+//-----------------------------------------------------------------------------
+BufferObject::Vao::Desc::operator Vbo::Desc() const
+{
+	Vbo::Desc desc(_vertexStride, _vertexCount, _pVertexData, _elementList);
+	return desc;
+}
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//! @brief  Iboバッファデータ
+//-----------------------------------------------------------------------------
+BufferObject::Vao::Desc::operator Ibo::Desc() const
+{
+	Ibo::Desc desc(_indexStride, _indexCount, _pIndexData);
+	return desc;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 Vbo::Vbo()
 : _vboId(0)
@@ -93,8 +110,9 @@ Vbo::Vbo()
 , _primitiveType(0)
 {
 }
+
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 Vbo::~Vbo()
 {
@@ -102,11 +120,11 @@ Vbo::~Vbo()
 }
 
 //-----------------------------------------------------------------------------
-//!	データ作成
-//!	@param	[in]	desc			バッファデータ
-//!	@param	[in]	primitiveType	描画方法
-//!	@retval	true	成功
-//!	@retval	false	失敗
+//  @brief  データ作成
+//  @param	[in]	desc			バッファデータ
+//  @param	[in]	primitiveType	描画方法
+//  @retval	true	成功
+//  @retval	false	失敗
 //-----------------------------------------------------------------------------
 bool Vbo::Create(const Desc& desc, PRIMITIVE_TYPE primitiveType)
 {
@@ -139,10 +157,10 @@ bool Vbo::Create(const Desc& desc, PRIMITIVE_TYPE primitiveType)
 }
 
 //-----------------------------------------------------------------------------
-//!	描画方法設定
-//!	@param	[in]	type	タイプ
-//!	@retval	true	成功
-//!	@retval	false	失敗
+//  @brief  描画方法設定
+//  @param	[in]	type	タイプ
+//  @retval	true	成功
+//  @retval	false	失敗
 //-----------------------------------------------------------------------------
 bool Vbo::SetPrimitiveType(PRIMITIVE_TYPE type)
 {
@@ -192,17 +210,15 @@ bool Vbo::SetPrimitiveType(PRIMITIVE_TYPE type)
 	return true;
 }
 
-
-
 //-----------------------------------------------------------------------------
-//!	バッファ有効化
+//  @brief  バッファ有効化
 //-----------------------------------------------------------------------------
 void Vbo::Bind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, _vboId);
 }
 //-----------------------------------------------------------------------------
-//!	バッファ無効化
+//  @brief  バッファ無効化
 //-----------------------------------------------------------------------------
 void Vbo::UnBind()
 {
@@ -210,7 +226,7 @@ void Vbo::UnBind()
 }
 
 //-----------------------------------------------------------------------------
-//!	入力レイアウト
+//  @brief  入力レイアウト
 //-----------------------------------------------------------------------------
 void Vbo::CallInputLayout()
 {
@@ -233,8 +249,8 @@ void Vbo::CallInputLayout()
 }
 
 //-----------------------------------------------------------------------------
-//!	描画
-//!	@param	[in]	ibo	IndexBufferObject
+//  @brief  描画
+//  @param	[in]	ibo	IndexBufferObject
 //-----------------------------------------------------------------------------
 void Vbo::Render(const Ibo& ibo)
 {
@@ -259,11 +275,10 @@ void Vbo::Render(const Ibo& ibo)
 }
 
 //-----------------------------------------------------------------------------
-//! 一部描画
-//!	一部の描画なのでBindはしない
-//!	@param	[in]	ibo		IndexBufferObject
-//!	@param	[in]	start	開始頂点
-//!	@param	[in]	count	描画する頂点数
+//  @brief  一部描画 一部の描画なのでBindはしない
+//  @param	[in]	ibo		IndexBufferObject
+//  @param	[in]	start	開始頂点
+//  @param	[in]	count	描画する頂点数
 //-----------------------------------------------------------------------------
 void Vbo::Render(const Ibo& ibo,u32 start, u32 count)
 {
@@ -288,11 +303,11 @@ void Vbo::Render(const Ibo& ibo,u32 start, u32 count)
 }
 
 //-----------------------------------------------------------------------------
-//! 描画
-//!	@param	[in]	ibo		IndexBufferObject
-//!	@param	[in]	start	開始頂点
-//!	@param	[in]	count	描画する頂点数
-//!	@param	[in]	size	描画する数
+//  @brief  描画
+//  @param	[in]	ibo		IndexBufferObject
+//  @param	[in]	start	開始頂点
+//  @param	[in]	count	描画する頂点数
+//  @param	[in]	size	描画する数
 //-----------------------------------------------------------------------------
 void Vbo::InstancedRender(const Ibo& ibo, u32 start, u32 count, u32 size)
 {
@@ -320,7 +335,7 @@ void Vbo::InstancedRender(const Ibo& ibo, u32 start, u32 count, u32 size)
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 Ibo::Desc::Desc()
 : _indexStride	(0)
@@ -330,10 +345,10 @@ Ibo::Desc::Desc()
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
-//!	@param	[in]	stride	データ一つ分のサイズ
-//!	@param	[in]	count	配列サイズ
-//!	@param	[in]	pData	データポインタ
+//  @brief  コンストラクタ
+//  @param	[in]	stride	データ一つ分のサイズ
+//  @param	[in]	count	配列サイズ
+//  @param	[in]	pData	データポインタ
 //-----------------------------------------------------------------------------
 Ibo::Desc::Desc(u32 stride, u32 count, const void* pData)
 : _indexStride	(stride)
@@ -343,10 +358,10 @@ Ibo::Desc::Desc(u32 stride, u32 count, const void* pData)
 }
 
 //-----------------------------------------------------------------------------
-//!	インデックス設定
-//!	@param	[in]	stride	データ一つ分のサイズ
-//!	@param	[in]	count	配列サイズ
-//!	@param	[in]	pData	データポインタ
+//  @brief  インデックス設定
+//  @param	[in]	stride	データ一つ分のサイズ
+//  @param	[in]	count	配列サイズ
+//  @param	[in]	pData	データポインタ
 //-----------------------------------------------------------------------------
 void Ibo::Desc::SetIndexData(u32 stride, u32 count, const void* pData)
 {
@@ -356,7 +371,7 @@ void Ibo::Desc::SetIndexData(u32 stride, u32 count, const void* pData)
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 Ibo::Ibo()
 : _iboId(0)
@@ -364,8 +379,9 @@ Ibo::Ibo()
 , _indexCount(0)
 {
 }
+
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 Ibo::~Ibo()
 {
@@ -373,9 +389,9 @@ Ibo::~Ibo()
 }
 
 //-----------------------------------------------------------------------------
-//!	データ作成
-//!	@param	[in]	desc			バッファデータ
-//!	@param	[in]	indexType		インデックスの型
+//  @brief  データ作成
+//  @param	[in]	desc			バッファデータ
+//  @param	[in]	indexType		インデックスの型
 //-----------------------------------------------------------------------------
 bool Ibo::Create(const Desc& desc, INDEX_TYPE indexType)
 {
@@ -417,7 +433,7 @@ bool Ibo::Create(const Desc& desc, INDEX_TYPE indexType)
 
 
 //-----------------------------------------------------------------------------
-//!	バッファ有効化
+//  @brief  バッファ有効化
 //-----------------------------------------------------------------------------
 void Ibo::Bind()const
 {
@@ -425,7 +441,7 @@ void Ibo::Bind()const
 }
 
 //-----------------------------------------------------------------------------
-//!	バッファ無効化
+//  @brief  バッファ無効化
 //-----------------------------------------------------------------------------
 void Ibo::UnBind()const
 {
@@ -434,7 +450,7 @@ void Ibo::UnBind()const
 
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 Vao::Desc::Desc()
 : _vertexStride	(0)
@@ -448,10 +464,10 @@ Vao::Desc::Desc()
 }
 
 //-----------------------------------------------------------------------------
-//!	頂点設定
-//!	@param	[in]	stride	データ一つ分のサイズ
-//!	@param	[in]	count	配列サイズ
-//!	@param	[in]	pData	データポインタ
+//  @brief  頂点設定
+//  @param	[in]	stride	データ一つ分のサイズ
+//  @param	[in]	count	配列サイズ
+//  @param	[in]	pData	データポインタ
 //-----------------------------------------------------------------------------
 void Vao::Desc::SetVertexData(u32 stride, u32 count, const void* pData)
 {
@@ -461,10 +477,10 @@ void Vao::Desc::SetVertexData(u32 stride, u32 count, const void* pData)
 }
 
 //-----------------------------------------------------------------------------
-//!	インデックス設定
-//!	@param	[in]	stride	データ一つ分のサイズ
-//!	@param	[in]	count	配列サイズ
-//!	@param	[in]	pData	データポインタ
+//  @brief  インデックス設定
+//  @param	[in]	stride	データ一つ分のサイズ
+//  @param	[in]	count	配列サイズ
+//  @param	[in]	pData	データポインタ
 //-----------------------------------------------------------------------------
 void Vao::Desc::SetIndexData(u32 stride, u32 count, const void* pData)
 {
@@ -474,9 +490,9 @@ void Vao::Desc::SetIndexData(u32 stride, u32 count, const void* pData)
 }
 
 //-----------------------------------------------------------------------------
-//!	バッファ情報追加
-//!	@param	[in]	pList			リストデータ
-//!	@param	[in]	elementCount	配列サイズ
+//  @brief  バッファ情報追加
+//  @param	[in]	pList			リストデータ
+//  @param	[in]	elementCount	配列サイズ
 //-----------------------------------------------------------------------------
 void Vao::Desc::SetElementList(const Element* pList, u32 elementCount)
 {
@@ -491,8 +507,8 @@ void Vao::Desc::SetElementList(const Element* pList, u32 elementCount)
 }
 
 //-----------------------------------------------------------------------------
-//!	バッファ情報追加
-//!	@param	[in]	list	リストデータ
+//  @brief  バッファ情報追加
+//  @param	[in]	list	リストデータ
 //-----------------------------------------------------------------------------
 void Vao::Desc::SetElementList(const std::vector<Element>& list)
 {
@@ -508,7 +524,7 @@ void Vao::Desc::SetElementList(const std::vector<Element>& list)
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 Vao::Vao()
 : _vao(0)
@@ -517,8 +533,19 @@ Vao::Vao()
 {
 	AddTag("Vao");
 }
+
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//! @brief  コンストラクタ
+//!	@param	[in]	desc			バッファデータ
+//!	@param	[in]	primitiveType	描画方法
+//!	@param	[in]	indexType		インデックスの型
+//-----------------------------------------------------------------------------
+BufferObject::Vao::Vao(const Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE indexType)
+{
+	Init(desc, primitiveType, indexType);
+}
+//-----------------------------------------------------------------------------
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 Vao::~Vao()
 {
@@ -529,10 +556,10 @@ Vao::~Vao()
 
 
 //-----------------------------------------------------------------------------
-//!	データ作成
-//!	@param	[in]	desc			バッファデータ
-//!	@param	[in]	primitiveType	描画方法
-//!	@param	[in]	indexType		インデックスの型
+//  @brief  データ作成
+//  @param	[in]	desc			バッファデータ
+//  @param	[in]	primitiveType	描画方法
+//  @param	[in]	indexType		インデックスの型
 //-----------------------------------------------------------------------------
 bool Vao::Init(const Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE indexType)
 {
@@ -592,10 +619,10 @@ bool Vao::Init(const Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE indexT
 }
 
 //-----------------------------------------------------------------------------
-//!	データ作成
-//!	@param	[in]	desc			バッファデータ
-//!	@param	[in]	primitiveType	描画方法
-//!	@param	[in]	indexType		インデックスの型
+//  @brief  データ作成
+//  @param	[in]	desc			バッファデータ
+//  @param	[in]	primitiveType	描画方法
+//  @param	[in]	indexType		インデックスの型
 //-----------------------------------------------------------------------------
 Vao* Vao::Create(const Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE indexType)
 {
@@ -611,7 +638,7 @@ Vao* Vao::Create(const Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE inde
 }
 
 //-----------------------------------------------------------------------------
-//!	描画
+//  @brief  描画
 //-----------------------------------------------------------------------------
 void Vao::Render()
 {
@@ -643,7 +670,7 @@ void Vao::Render()
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 VaoObject::VaoObject()
 :_pVao(nullptr)
@@ -652,10 +679,10 @@ VaoObject::VaoObject()
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
-//!	@param	[in]	desc			バッファデータ
-//!	@param	[in]	primitiveType	描画方法
-//!	@param	[in]	indexType		インデックスの型
+//  @brief  コンストラクタ
+//  @param	[in]	desc			バッファデータ
+//  @param	[in]	primitiveType	描画方法
+//  @param	[in]	indexType		インデックスの型
 //-----------------------------------------------------------------------------
 VaoObject::VaoObject(const Vao::Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE indexType, const MaterialData& material)
 :_pVao(nullptr)
@@ -673,7 +700,7 @@ VaoObject::VaoObject(const Vao::Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_
 }
 
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 VaoObject::~VaoObject()
 {
@@ -681,19 +708,18 @@ VaoObject::~VaoObject()
 }
 
 //-----------------------------------------------------------------------------
-//!	解放
+//  @brief  解放
 //-----------------------------------------------------------------------------
 void VaoObject::Clear()
 {
 	SafeRelease(_pVao);
 }
 
-
 //-----------------------------------------------------------------------------
-//!	データ作成
-//!	@param	[in]	desc			バッファデータ
-//!	@param	[in]	primitiveType	描画方法
-//!	@param	[in]	indexType		インデックスの型
+//  @brief  データ作成
+//  @param	[in]	desc			バッファデータ
+//  @param	[in]	primitiveType	描画方法
+//  @param	[in]	indexType		インデックスの型
 //-----------------------------------------------------------------------------
 bool VaoObject::Init(const Vao::Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE indexType, const MaterialData& materiial)
 {
@@ -708,10 +734,10 @@ bool VaoObject::Init(const Vao::Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_
 }
 
 //-----------------------------------------------------------------------------
-//!	データ作成
-//!	@param	[in]	desc			バッファデータ
-//!	@param	[in]	primitiveType	描画方法
-//!	@param	[in]	indexType		インデックスの型
+//  @brief  データ作成
+//  @param	[in]	desc			バッファデータ
+//  @param	[in]	primitiveType	描画方法
+//  @param	[in]	indexType		インデックスの型
 //-----------------------------------------------------------------------------
 VaoObject* VaoObject::Create(const Vao::Desc& desc, PRIMITIVE_TYPE primitiveType, INDEX_TYPE indexType, const MaterialData& materiial)
 {
@@ -725,14 +751,34 @@ VaoObject* VaoObject::Create(const Vao::Desc& desc, PRIMITIVE_TYPE primitiveType
 }
 
 //-----------------------------------------------------------------------------
-//!	描画
+//  @brief  描画
 //-----------------------------------------------------------------------------
 void VaoObject::Render()
 {
 }
 
+//-----------------------------------------------------------------------------
+//  @brief  データ有無
+//-----------------------------------------------------------------------------
+bool BufferObject::VaoObject::IsEmpty()
+{
+	return _pVao == nullptr;
+}
+
+//-----------------------------------------------------------------------------
+//  @brief  Vao取得
+//  @return	Vaoのポインタ
+//-----------------------------------------------------------------------------
+Vao* BufferObject::VaoObject::GetVao()
+{
+	return _pVao;
+}
+
 static const f32 gBoxSize = 1.0f;
 
+//-----------------------------------------------------------------------------
+//! @brief  頂点情報
+//-----------------------------------------------------------------------------
 static const Vertex gBoxVertices[] =
 {
 	// 前
@@ -771,17 +817,23 @@ static const Vertex gBoxVertices[] =
 	{ Vector3(-gBoxSize, -gBoxSize, -gBoxSize), Vector3(0, -1, 0), Color(255), Vector2(0, 0) },
 	{ Vector3(+gBoxSize, -gBoxSize, -gBoxSize), Vector3(0, -1, 0), Color(255), Vector2(1, 0) },
 };
+
+//-----------------------------------------------------------------------------
+//! @brief  頂点インデックス
+//-----------------------------------------------------------------------------
 static const u32 gBoxIndices[] =
 {
 	0,  1,  2,  1,  3,  2,
 	4,  5,  6,  5,  7,  6,
-	8,  9, 10,  9, 11, 10,
+	8,  9,  10, 9,  11, 10,
 	12, 13, 14, 13, 15, 14,
 	16, 17, 18, 17, 19, 18,
 	20, 21, 22, 21, 23, 22, 
 };
 
-//	バッファ情報
+//-----------------------------------------------------------------------------
+//! @brief  バッファ情報
+//-----------------------------------------------------------------------------
 BufferObject::Element gBoxElements[] =
 {
 	{ 0, 3, BufferObject::ELEMENT_TYPE::F32, false, offsetof(Vertex, _position) },
@@ -793,7 +845,7 @@ BufferObject::Element gBoxElements[] =
 RefPointer<BufferObject::Vao> BoxMesh::_pStaticBoxMesh = nullptr;
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
+//  @brief  コンストラクタ
 //-----------------------------------------------------------------------------
 BoxMesh::BoxMesh()
 {
@@ -817,15 +869,15 @@ BoxMesh::BoxMesh()
 }
 
 //-----------------------------------------------------------------------------
-//!	デストラクタ
+//  @brief  デストラクタ
 //-----------------------------------------------------------------------------
 BoxMesh::~BoxMesh()
 {
 }
 
 //-----------------------------------------------------------------------------
-//!	コンストラクタ
-//!	@param	[in]	pParent	親オブジェクト
+//  @brief  コンストラクタ
+//  @param	[in]	pParent	親オブジェクト
 //-----------------------------------------------------------------------------
 BoxMesh::BoxMesh(const MaterialData& material)
 {
@@ -851,7 +903,7 @@ BoxMesh::BoxMesh(const MaterialData& material)
 }
 
 //-----------------------------------------------------------------------------
-//!	描画
+//  @brief  描画
 //-----------------------------------------------------------------------------
 void BoxMesh::Render()
 {
