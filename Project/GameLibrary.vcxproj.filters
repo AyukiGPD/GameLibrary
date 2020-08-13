@@ -198,6 +198,21 @@
     <ClInclude Include="src\CollisionObject.h">
       <Filter>src\System\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="src\Vbo.h">
+      <Filter>src\System\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ibo.h">
+      <Filter>src\System\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vao.h">
+      <Filter>src\System\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VaoObject.h">
+      <Filter>src\System\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoxMesh.h">
+      <Filter>src\System\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\stdafx.cpp">
@@ -355,6 +370,21 @@
     </ClCompile>
     <ClCompile Include="src\CollisionObject.cpp">
       <Filter>src\System\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vbo.cpp">
+      <Filter>src\System\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ibo.cpp">
+      <Filter>src\System\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vao.cpp">
+      <Filter>src\System\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VaoObject.cpp">
+      <Filter>src\System\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoxMesh.cpp">
+      <Filter>src\System\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

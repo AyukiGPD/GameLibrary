@@ -335,7 +335,9 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BoxMesh.h" />
     <ClInclude Include="src\CollisionObject.h" />
+    <ClInclude Include="src\Ibo.h" />
     <ClInclude Include="src\MeshBase.h" />
     <ClInclude Include="src\GameObjectBase.h" />
     <ClInclude Include="src\BufferObject.h" />
@@ -385,11 +387,16 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\typeDef.h" />
+    <ClInclude Include="src\Vao.h" />
+    <ClInclude Include="src\VaoObject.h" />
+    <ClInclude Include="src\Vbo.h" />
     <ClInclude Include="src\Vector.h" />
     <ClInclude Include="src\XInputPad.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BoxMesh.cpp" />
     <ClCompile Include="src\CollisionObject.cpp" />
+    <ClCompile Include="src\Ibo.cpp" />
     <ClCompile Include="src\MeshBase.cpp" />
     <ClCompile Include="src\GameObjectBase.cpp" />
     <ClCompile Include="src\BufferObject.cpp" />
@@ -446,6 +453,9 @@ xcopy /I /D /Y "$(SolutionDir)assets" "$(OutDir)assets"</Command>
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\typeDef.cpp" />
+    <ClCompile Include="src\Vao.cpp" />
+    <ClCompile Include="src\VaoObject.cpp" />
+    <ClCompile Include="src\Vbo.cpp" />
     <ClCompile Include="src\Vector.cpp" />
     <ClCompile Include="src\XInputPad.cpp" />
   </ItemGroup>

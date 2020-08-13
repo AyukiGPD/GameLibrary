@@ -218,6 +218,12 @@
 
 //----	•`‰æŠÖ˜A
 #include "BufferObject.h"
+#include "Vbo.h"
+#include "Ibo.h"
+#include "Vao.h"
+#include "VaoObject.h"
+#include "BoxMesh.h"
+
 #include "drawObj.h"
 #include "Particle.h"
 #include "FrameBuffer.h"
